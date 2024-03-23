@@ -11,7 +11,8 @@ const getAllAdminInfo = async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: "Fetch all the admin Info",
-            data: result
+            meta: result.meta,
+            data: result.data
         })
     } catch (error) {
         console.log("error", error)

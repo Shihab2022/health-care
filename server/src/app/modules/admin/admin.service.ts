@@ -7,7 +7,7 @@ import prisma from "../../utils/prisma"
 
 
 const getAllAdminFromDB = async (params: any, options: any) => {
-    const { limit, skip } = calculatePagination(options)
+    const { limit, skip, page } = calculatePagination(options)
     const { searchTerm, ...filterData } = params
     const andConditions: Prisma.AdminWhereInput[] = []
 
@@ -39,7 +39,16 @@ const getAllAdminFromDB = async (params: any, options: any) => {
             [options?.sortBy]: options?.sortOrder
         }
     })
-    return result
+    const total = await prisma.admin.count({
+        where: whereCondition
+    })
+    return {
+        meta: {
+            page, limit, total
+        },
+
+        data: result
+    }
 }
 
 export const AdminServices = {
