@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AdminServices } from "./admin.service";
 import { pick } from "../../utils/pick";
 import { pickAbleField, searchAbleOptions } from "./admin.constant";
 import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 
-const getAllAdminInfo = async (req: Request, res: Response) => {
+const getAllAdminInfo = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const filterValue = pick(req.query, pickAbleField)
         const options = pick(req.query, searchAbleOptions)
@@ -18,14 +18,11 @@ const getAllAdminInfo = async (req: Request, res: Response) => {
             data: result.data
         })
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error!.name || "Something went wrong ",
-        })
+        next(error)
 
     }
 }
-const getAdminById = async (req: Request, res: Response) => {
+const getAdminById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await AdminServices.getAdminByIdFromDB(req.params.id)
         sendResponse(res, {
@@ -35,14 +32,10 @@ const getAdminById = async (req: Request, res: Response) => {
             data: result
         })
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error!.name || "Something went wrong ",
-        })
-
+        next(error)
     }
 }
-const updateAdminById = async (req: Request, res: Response) => {
+const updateAdminById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await AdminServices.updateAdminByIdIntoDB(req.params.id, req.body)
 
@@ -53,14 +46,11 @@ const updateAdminById = async (req: Request, res: Response) => {
             data: result
         })
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error!.name || "Something went wrong ",
-        })
+        next(error)
 
     }
 }
-const deletedAdmin = async (req: Request, res: Response) => {
+const deletedAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await AdminServices.deleteAdminFromDB(req.params.id)
         sendResponse(res, {
@@ -70,14 +60,11 @@ const deletedAdmin = async (req: Request, res: Response) => {
             data: result
         })
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error!.name || "Something went wrong ",
-        })
+        next(error)
 
     }
 }
-const softDeletedAdmin = async (req: Request, res: Response) => {
+const softDeletedAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await AdminServices.softDeleteAdminFromDB(req.params.id)
 
@@ -88,10 +75,7 @@ const softDeletedAdmin = async (req: Request, res: Response) => {
             data: result
         })
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error!.name || "Something went wrong ",
-        })
+        next(error)
 
     }
 }
