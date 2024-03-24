@@ -2,6 +2,7 @@ import { Prisma, PrismaClient } from "@prisma/client"
 import { adminSearchAbleFields } from "./admin.constant"
 import calculatePagination from "../../utils/calculatePagination"
 import prisma from "../../utils/prisma"
+import { TAdmin } from "./admin.interface"
 
 
 
@@ -58,7 +59,16 @@ const getAdminByIdFromDB = async (id: string) => {
     })
     return result
 }
+const updateAdminByIdIntoDB = async (id: string, data: Partial<TAdmin>) => {
+    const result = await prisma.admin.update({
+        where: {
+            id
+        },
+        data
+    })
+    return result
+}
 
 export const AdminServices = {
-    getAllAdminFromDB, getAdminByIdFromDB
+    getAllAdminFromDB, getAdminByIdFromDB, updateAdminByIdIntoDB
 }
