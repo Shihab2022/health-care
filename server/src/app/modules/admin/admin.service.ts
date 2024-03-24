@@ -38,7 +38,7 @@ const getAllAdminFromDB = async (params: IAdminFilterRequest, options: IPaginati
         skip,
         take: limit,
         orderBy: {
-            [options?.sortBy]: options?.sortOrder
+            [(options?.sortBy as any)]: options?.sortOrder
         }
     })
     const total = await prisma.admin.count({
