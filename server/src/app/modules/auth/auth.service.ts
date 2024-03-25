@@ -1,3 +1,5 @@
+import { Secret } from "jsonwebtoken";
+import config from "../../../config";
 import { generateJwtToken, jwtVerify } from "../../utils/jwtHelper";
 import prisma from "../../utils/prisma"
 import bcrypt from 'bcrypt';
@@ -21,8 +23,8 @@ const loginUser = async (payload: {
         email: isUserExit.email,
         role: isUserExit.role
     }
-    const accessToken = generateJwtToken(tokenData, "3idfdddsdsmdksk", "5min")
-    const refreshToken = generateJwtToken(tokenData, "3iderff34343mdksk", "10d");
+    const accessToken = generateJwtToken(tokenData, config.jwt_access_secret as Secret, config.jwt_access_expire_in as string)
+    const refreshToken = generateJwtToken(tokenData, config.jwt_refresh_secret as Secret, config.jwt_refresh_expire_in as string);
     return { accessToken, refreshToken, needPasswordChange: isUserExit.needPasswordChange }
 }
 
@@ -30,7 +32,7 @@ const loginUser = async (payload: {
 const GenerateRefreshToken = async (token: string) => {
     let decoded
     try {
-        decoded = jwtVerify(token, "3iderff34343mdksk")
+        decoded = jwtVerify(token, config.jwt_refresh_secret as Secret)
     } catch (error) {
         throw new Error("You are not authorization")
     }
@@ -42,7 +44,7 @@ const GenerateRefreshToken = async (token: string) => {
     const accessToken = generateJwtToken({
         email: userData.email,
         role: userData.role
-    }, "3idfdddsdsmdksk", "5min")
+    }, config.jwt_access_secret as Secret, config.jwt_access_expire_in as string)
     return {
         accessToken, needPasswordChange: userData.needPasswordChange
     }
