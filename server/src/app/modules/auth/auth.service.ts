@@ -15,9 +15,17 @@ const loginUser = async (payload: {
         email: isUserExit.email,
         role: isUserExit.role
     },
-        "3idfmdksk"
+        "3idfmdksk",
+        { expiresIn: "5min" }
     );
-    return { accessToken }
+    const refreshToken = jwt.sign({
+        email: isUserExit.email,
+        role: isUserExit.role
+    },
+        "3idfmdksk",
+        { expiresIn: "2d" }
+    );
+    return { accessToken, refreshToken, needPasswordChange: isUserExit.needPasswordChange }
 }
 
 export const AuthServices = {
