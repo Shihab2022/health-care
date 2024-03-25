@@ -18,6 +18,7 @@ const auth = (...roles: string[]) => {
             if (roles.length && !roles.includes(verifyUser.role)) {
                 throw new ApiError(httpStatus.FORBIDDEN, errorMessage)
             }
+            req.user = verifyUser
             next()
         } catch (error) {
             next(error)

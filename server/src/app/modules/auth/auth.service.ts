@@ -3,6 +3,7 @@ import config from "../../../config";
 import { generateJwtToken, jwtVerify } from "../../utils/jwtHelper";
 import prisma from "../../utils/prisma"
 import bcrypt from 'bcrypt';
+import { UserStatus } from "@prisma/client";
 
 
 const loginUser = async (payload: {
@@ -50,7 +51,40 @@ const GenerateRefreshToken = async (token: string) => {
     }
 }
 
+
+const changePassword = async (user: any, payload: any) => {
+    const userData = await prisma.user.findUniqueOrThrow({
+        where: {
+            email: user.email,
+            status: UserStatus.ACTIVE
+        }
+    });
+
+    const isCorrectPassword: boolean = await bcrypt.compare(payload.oldPassword, userData.password);
+
+    if (!isCorrectPassword) {
+        throw new Error("Password incorrect!")
+    }
+
+    const hashedPassword: string = await bcrypt.hash(payload.newPassword, 12);
+
+    await prisma.user.update({
+        where: {
+            email: userData.email
+        },
+        data: {
+            password: hashedPassword,
+            needPasswordChange: false
+        }
+    })
+
+    return {
+        message: "Password changed successfully!"
+    }
+
+}
 export const AuthServices = {
     loginUser,
-    GenerateRefreshToken
+    GenerateRefreshToken,
+    changePassword
 }
