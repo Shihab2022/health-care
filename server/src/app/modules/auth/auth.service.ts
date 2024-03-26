@@ -4,6 +4,7 @@ import { generateJwtToken, jwtVerify } from "../../utils/jwtHelper";
 import prisma from "../../utils/prisma"
 import bcrypt from 'bcrypt';
 import { UserStatus } from "@prisma/client";
+import emailSender from "../../utils/emailSender";
 
 
 const loginUser = async (payload: {
@@ -83,8 +84,33 @@ const changePassword = async (user: any, payload: any) => {
     }
 
 }
+const forgotPassword = async (payload: { email: string }) => {
+    const isUserExit = await prisma.user.findUniqueOrThrow({
+        where: {
+            email: payload.email,
+            status: UserStatus.ACTIVE
+        }
+    })
+    const generateToken = generateJwtToken({ email: isUserExit.email, role: isUserExit.role }, config.reset_access_secret as Secret, config.reset_pass_access_expire_in as string)
+    const resetUrl = config.reset_pass_base_link + `?userId=${isUserExit.id}&token=${generateToken}`
+    //http://localhost:3000/reset-password?userId="33rhjdjmksmi"&token="fkkkkkkkkkkkkk"
+    await emailSender(isUserExit.email,
+        `
+        <div>
+        <p>Dear user </p>
+            <p>Your password link 
+                <a href=${resetUrl}>
+                    <button>Reset Password</button>
+                </a>
+            </p>
+        </div>
+         
+         `)
+    return generateToken
+}
 export const AuthServices = {
     loginUser,
     GenerateRefreshToken,
-    changePassword
+    changePassword,
+    forgotPassword
 }

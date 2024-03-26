@@ -8,7 +8,7 @@ import httpStatus from 'http-status';
 
 const auth = (...roles: string[]) => {
     const errorMessage = "You are not authorized"
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return async (req: Request & { user?: any }, res: Response, next: NextFunction) => {
         try {
             const token = req?.headers?.authorization
             if (!token) {
