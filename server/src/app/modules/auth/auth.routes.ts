@@ -10,6 +10,10 @@ router.post('/login', AuthController.loginUser)
 router.post('/refresh-token', AuthController.genRefreshToken)
 router.post('/forgot-password', AuthController.forgotPassword)
 router.post('/change-password', auth(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.PATIENT), AuthController.changePassword)
+router.post(
+    '/reset-password',
+    AuthController.resetPassword
+)
 
 export const AuthRouter = router
 
