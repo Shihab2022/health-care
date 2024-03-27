@@ -3,9 +3,10 @@ import bcrypt from "bcrypt"
 import prisma from "../../utils/prisma"
 import config from "../../../config"
 import { fileUploader } from "../../utils/fileUploder"
+import { IFile } from "../../interface/file"
 
 const createAdmin = async (req: any) => {
-    const file = req.file
+    const file: IFile = req.file
     if (file) {
         const uploadToCloudinary = await fileUploader.uploadToCloudinary(file)
         req.body.admin.profilePhoto = uploadToCloudinary?.secure_url

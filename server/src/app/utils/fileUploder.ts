@@ -1,7 +1,9 @@
 import multer from 'multer';
-import path, { resolve } from 'path';
+import path from 'path';
+import fs from "fs"
 import { v2 as cloudinary } from 'cloudinary';
 import config from '../../config';
+import { ICloudinaryResponse, IFile } from '../interface/file';
 
 cloudinary.config({
     cloud_name: 'dwqdndar8',
@@ -17,11 +19,11 @@ const storage = multer.diskStorage({
     }
 })
 
-const uploadToCloudinary = (file: any) => {
+const uploadToCloudinary = async (file: IFile): Promise<ICloudinaryResponse | undefined> => {
     return new Promise((resolve, reject) => {
         cloudinary.uploader.upload(file.path,
-            { public_id: "olympic_flag" },
-            (error, result) => {
+            (error: Error, result: ICloudinaryResponse) => {
+                fs.unlinkSync(file.path)
                 if (error) {
                     reject(error)
                 }
