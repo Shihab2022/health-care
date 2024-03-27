@@ -6,3 +6,7 @@ this is backend
 [demo font end 4](https://preview.themeforest.net/item/oldkare-senior-elderly-care-wordpress-theme/full_screen_preview/51122184?_ga=2.9930483.77269262.1710597092-1333288503.1642045414)
 
 [email sender template](https://github.com/topics/html-email-templates)
+
+_For image upload on the cloud_
+[cloudinary](https://cloudinary.com/)
+[multer](https://www.npmjs.com/package/multer)

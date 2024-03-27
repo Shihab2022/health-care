@@ -2,8 +2,15 @@ import { PrismaClient, UserRole } from "@prisma/client"
 import bcrypt from "bcrypt"
 import prisma from "../../utils/prisma"
 import config from "../../../config"
+import { fileUploader } from "../../utils/fileUploder"
 
-const createAdmin = async (data: any) => {
+const createAdmin = async (req: any) => {
+    const file = req.file
+    if (file) {
+        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file)
+        req.body.admin.profilePhoto = uploadToCloudinary?.secure_url
+    }
+    const data = req.body
     const hashPass = await bcrypt.hash(data.password, 12)
     const userData = {
         password: hashPass,
