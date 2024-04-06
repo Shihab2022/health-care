@@ -6,6 +6,7 @@ import { UserRole } from '@prisma/client';
 import { fileUploader } from '../../utils/fileUploder';
 import { userValidation } from './user.validation';
 const router = express.Router()
+router.get("/me", auth(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.PATIENT), UserController.getMyProfile)
 router.post("/create",
     auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
     fileUploader.upload.single('file'),

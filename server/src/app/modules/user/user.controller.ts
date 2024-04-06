@@ -15,6 +15,18 @@ const createAdmin = catchAsync(async (req: Request, res: Response) => {
         data: result
     })
 })
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+    // console.log(req.user)
+    const result = await UserServices.getMyProfile(req.user)
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Profile Info get successfully",
+        data: result
+    })
+})
 export const UserController = {
-    createAdmin
+    createAdmin,
+    getMyProfile
 }
