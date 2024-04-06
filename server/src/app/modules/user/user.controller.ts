@@ -3,6 +3,7 @@ import { UserServices } from "./user.service";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
+import { IAuthUser } from "../../interface/common";
 
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
 
@@ -15,8 +16,7 @@ const createAdmin = catchAsync(async (req: Request, res: Response) => {
         data: result
     })
 })
-const getMyProfile = catchAsync(async (req: Request, res: Response) => {
-    // console.log(req.user)
+const getMyProfile = catchAsync(async (req: Request & { user?: IAuthUser }, res: Response) => {
     const result = await UserServices.getMyProfile(req.user)
 
     sendResponse(res, {
@@ -26,7 +26,21 @@ const getMyProfile = catchAsync(async (req: Request, res: Response) => {
         data: result
     })
 })
+const updateMyProfile = catchAsync(async (req: Request & { user?: IAuthUser }, res: Response) => {
+
+    const user = req.user;
+
+    const result = await UserServices.updateMyProfile(user as IAuthUser, req);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "My profile updated!",
+        data: result
+    })
+});
 export const UserController = {
     createAdmin,
-    getMyProfile
+    getMyProfile,
+    updateMyProfile
 }
