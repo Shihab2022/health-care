@@ -10,3 +10,9 @@ this is backend
 _For image upload on the cloud_
 [cloudinary](https://cloudinary.com/)
 [multer](https://www.npmjs.com/package/multer)
+
+## command for format schema
+
+```
+npx prisma format ./schema.prisma
+```
