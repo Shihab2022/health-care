@@ -83,7 +83,11 @@ const updateMyProfile = async (user: IAuthUser, req: Request) => {
             status: UserStatus.ACTIVE
         }
     });
-
+    const file = req.file as IFile;
+    if (file) {
+        const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
+        req.body.profilePhoto = uploadToCloudinary?.secure_url;
+    }
     let profileInfo;
 
     if (userInfo.role === UserRole.SUPER_ADMIN) {
