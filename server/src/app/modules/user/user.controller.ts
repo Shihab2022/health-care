@@ -16,6 +16,18 @@ const createAdmin = catchAsync(async (req: Request, res: Response) => {
         data: result
     })
 })
+
+const createDoctor = catchAsync(async (req: Request, res: Response) => {
+
+    const result = await UserServices.createDoctor(req)
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Doctor created successfully",
+        data: result
+    })
+})
 const getMyProfile = catchAsync(async (req: Request & { user?: IAuthUser }, res: Response) => {
     const result = await UserServices.getMyProfile(req.user)
 
@@ -42,5 +54,6 @@ const updateMyProfile = catchAsync(async (req: Request & { user?: IAuthUser }, r
 export const UserController = {
     createAdmin,
     getMyProfile,
-    updateMyProfile
+    updateMyProfile,
+    createDoctor
 }
