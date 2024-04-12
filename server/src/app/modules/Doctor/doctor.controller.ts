@@ -11,13 +11,14 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
 
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
-    const result = await DoctorService.getAllFromDB();
+    const result = await DoctorService.getAllFromDB(filters, options);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Doctors retrieval successfully',
-        data: result,
+        meta: result.meta,
+        data: result.data,
     });
 });
 const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
