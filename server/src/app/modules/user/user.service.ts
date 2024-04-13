@@ -1,4 +1,4 @@
-import { PrismaClient, UserRole, UserStatus } from "@prisma/client"
+import { Patient, PrismaClient, UserRole, UserStatus } from "@prisma/client"
 import bcrypt from "bcrypt"
 import prisma from "../../utils/prisma"
 import config from "../../../config"
@@ -151,9 +151,41 @@ const updateMyProfile = async (user: IAuthUser, req: Request) => {
 
     return { ...profileInfo };
 }
+const createPatient = async (req: Request): Promise<Patient> => {
+    const file = req.file as IFile;
+
+    if (file) {
+        const uploadedProfileImage = await fileUploader.uploadToCloudinary(file);
+        req.body.patient.profilePhoto = uploadedProfileImage?.secure_url;
+    }
+
+    const hashedPassword: string = await bcrypt.hash(req.body.password, 12)
+
+    const userData = {
+        email: req.body.patient.email,
+        password: hashedPassword,
+        role: UserRole.PATIENT
+    }
+
+    const result = await prisma.$transaction(async (transactionClient) => {
+        await transactionClient.user.create({
+            data: userData
+        });
+
+        const createdPatientData = await transactionClient.patient.create({
+            data: req.body.patient
+        });
+
+        return createdPatientData;
+    });
+
+    return result;
+};
+
 export const UserServices = {
     createAdmin,
     createDoctor,
     getMyProfile,
-    updateMyProfile
+    updateMyProfile,
+    createPatient
 }
