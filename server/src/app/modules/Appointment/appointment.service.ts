@@ -57,19 +57,18 @@ const createAppointment = async (user: IAuthUser, payload: any) => {
                 appointmentId: appointmentData.id
             }
         });
+        // create payment 
+        const today = new Date();
 
-        // PH-HealthCare-datatime
-        // const today = new Date();
+        const transactionId = "PH-HealthCare-" + today.getFullYear() + "-" + today.getMonth() + "-" + today.getDay() + "-" + today.getHours() + "-" + today.getMinutes();
 
-        // const transactionId = "PH-HealthCare-" + today.getFullYear() + "-" + today.getMonth() + "-" + today.getDay() + "-" + today.getHours() + "-" + today.getMinutes();
-
-        // await tx.payment.create({
-        //     data: {
-        //         appointmentId: appointmentData.id,
-        //         amount: doctorData.appointmentFee,
-        //         transactionId
-        //     }
-        // })
+        await tx.payment.create({
+            data: {
+                appointmentId: appointmentData.id,
+                amount: doctorData.appointmentFee,
+                transactionId
+            }
+        })
 
         return appointmentData;
     })
