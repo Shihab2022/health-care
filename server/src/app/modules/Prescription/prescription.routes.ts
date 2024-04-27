@@ -10,6 +10,10 @@ router.post(
     // validateRequest(PrescriptionValidation.create),
     PrescriptionController.insertIntoDB
 )
-
+router.get(
+    '/my-prescription',
+    auth(UserRole.PATIENT),
+    PrescriptionController.patientPrescription
+)
 export const PrescriptionRoutes = router;
 
