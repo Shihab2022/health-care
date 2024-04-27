@@ -31,6 +31,7 @@ export default {
         success_url: process.env.SUCCESS_URL,
         fail_url: process.env.FAIL_URL,
         cancel_url: process.env.CANCEL_URL,
+        sslValidationApi: process.env.SSL_VALIDATION_API,
     }
 
 };
