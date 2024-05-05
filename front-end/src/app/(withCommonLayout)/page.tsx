@@ -1,13 +1,8 @@
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+import HeroSection from "@/components/ui/HomePage/HeroSection/HeroSection";
 const HomePage = () => {
   return (
     <>
-      <Stack>
-        <Button color="primary">Text</Button>
-        <Button>Contained</Button>
-        <Button>Outlined</Button>
-      </Stack>
+      <HeroSection />
     </>
   );
 };

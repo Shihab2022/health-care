@@ -1,11 +1,11 @@
 import Footer from "@/components/shared/Footer/Footer";
 import Navbar from "@/components/shared/Navbar/Navbar";
 
-const CommonLayout = () => {
+const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Navbar />
-      <h1>this si our main layout</h1>
+      <div className="min-h-screen">{children}</div>
       <Footer />
     </div>
   );
