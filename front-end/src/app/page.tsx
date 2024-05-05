@@ -4,9 +4,9 @@ const HomePage = () => {
   return (
     <>
       <Stack>
-        <Button variant="text">Text</Button>
-        <Button variant="contained">Contained</Button>
-        <Button variant="outlined">Outlined</Button>
+        <Button color="primary">Text</Button>
+        <Button>Contained</Button>
+        <Button>Outlined</Button>
       </Stack>
     </>
   );
