@@ -9,6 +9,10 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AirlineSeatIndividualSuiteIcon from "@mui/icons-material/AirlineSeatIndividualSuite";
 import TryIcon from "@mui/icons-material/Try";
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import DescriptionIcon from '@mui/icons-material/Description';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 export const drawerItems = (role: UserRole): DrawerItem[] => {
     const roleMenus: DrawerItem[] = [];
@@ -54,7 +58,7 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
                 {
                     title: "Appointments",
                     path: `${role}/appointments`,
-                    icon: CalendarMonthIcon,
+                    icon: HomeRepairServiceIcon,
                 },
                 {
                     title: "Reviews",
@@ -79,7 +83,7 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
                 {
                     title: "Appointments",
                     path: `${role}/appointment`,
-                    icon: CalendarMonthIcon,
+                    icon: HomeRepairServiceIcon,
                 }
             );
             break;
@@ -89,17 +93,17 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
                 {
                     title: "Appointments",
                     path: `${role}/appointments`,
-                    icon: DashboardIcon,
+                    icon: AssignmentIcon,
                 },
                 {
                     title: "Prescriptions",
                     path: `${role}/prescriptions`,
-                    icon: DashboardIcon,
+                    icon: DescriptionIcon,
                 },
                 {
                     title: "Payment History",
                     path: `${role}/payment-history`,
-                    icon: DashboardIcon,
+                    icon: PaymentsIcon,
                 }
             );
             break;
