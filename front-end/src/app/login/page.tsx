@@ -17,7 +17,7 @@ import { useState } from "react";
 
 export const validationSchema = z.object({
   email: z.string().email("Please enter a valid email address!"),
-  password: z.string().min(6, "Must be at least 6 characters"),
+  password: z.string().min(4, "Must be at least 6 characters"),
 });
 
 const LoginPage = () => {
@@ -31,7 +31,7 @@ const LoginPage = () => {
       if (res?.data?.accessToken) {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
-        router.push("/");
+        router.push("/dashboard");
       } else {
         setError(res.message);
         // console.log(res);
