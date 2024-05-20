@@ -1,6 +1,6 @@
 import { authKey } from "@/contants/authkey";
 import { decodedToken } from "@/utils/jwt";
-
+import { instance as axiosInstance } from "@/helpers/axios/axiosInstance";
 import {
     getFromLocalStorage,
     removeFromLocalStorage,

@@ -10,7 +10,8 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDebounced } from "@/redux/hooks";
 import { toast } from "sonner";
-
+import EditIcon from "@mui/icons-material/Edit";
+import Link from "next/link";
 const DoctorsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const query: Record<string, any> = {};
@@ -46,7 +47,6 @@ const DoctorsPage = () => {
       console.error(err.message);
     }
   };
-
   const columns: GridColDef[] = [
     { field: "name", headerName: "Name", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
@@ -61,14 +61,23 @@ const DoctorsPage = () => {
       align: "center",
       renderCell: ({ row }) => {
         return (
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
+          <Box>
+            <IconButton
+              onClick={() => handleDelete(row.id)}
+              aria-label="delete"
+            >
+              <DeleteIcon sx={{ color: "red" }} />
+            </IconButton>
+            <Link href={`/dashboard/admin/doctors/edit/${row.id}`}>
+              <IconButton aria-label="delete">
+                <EditIcon />
+              </IconButton>
+            </Link>
+          </Box>
         );
       },
     },
   ];
-
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
