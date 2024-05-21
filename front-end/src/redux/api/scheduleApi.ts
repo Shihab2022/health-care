@@ -17,7 +17,7 @@ export const scheduleApi = baseApi.injectEndpoints({
                 return {
                     url: "/schedule",
                     method: "GET",
-                    params: arg,
+                    // params: arg,
                 };
             },
             transformResponse: (response: [], meta: IMeta) => {
