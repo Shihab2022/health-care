@@ -5,6 +5,7 @@ import facebookIcon from "@/assets/landing_page/facebook.png";
 import instagramIcon from "@/assets/landing_page/instagram.png";
 import twitterIcon from "@/assets/landing_page/twitter.png";
 import linkedIcon from "@/assets/landing_page/linkedin.png";
+import Logo from "../Logo/Logo";
 
 const Footer = () => {
   return (
@@ -37,19 +38,7 @@ const Footer = () => {
           <Typography component="p" color="white">
             &copy;2024 Ph HealthCare. All Rights Reserved.
           </Typography>
-          <Typography
-            variant="h4"
-            component={Link}
-            href="/"
-            fontWeight={600}
-            color="white"
-          >
-            P
-            <Box component="span" color="primary.main">
-              H
-            </Box>{" "}
-            Health Care
-          </Typography>
+          <Logo isBgWhite={false} />
           <Typography component="p" color="white">
             Privacy Policy! Terms & Conditions
           </Typography>
