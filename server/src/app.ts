@@ -5,26 +5,16 @@ import notFound from "./app/utils/notFound"
 import { rootRouter } from "./app/routes"
 import globalErrorHandler from "./app/middlewares/globalErrorHandler"
 import cron from 'node-cron'
-import { AppointmentService } from "./app/modules/Appointment/appointment.service"
+import { corsAllowOrigin } from "./constant"
+import { cancelAppointments, testingRoute } from "./app/modules/others"
 const app = express()
 
-app.use(cors({ origin: ['http://localhost:5173', "http://localhost:3000"], credentials: true }))
+app.use(cors(corsAllowOrigin))
 app.use(express.json())
 app.use(cookieParser())
 
-cron.schedule('* * * * *', () => {
-    try {
-        AppointmentService.cancelUnpaidAppointments();
-    }
-    catch (err) {
-        console.error(err);
-    }
-});
-app.get('/', (req, res) => {
-    res.send({
-        message: "this is test route"
-    })
-})
+cron.schedule('* * * * *', cancelAppointments);
+app.get('/', testingRoute)
 app.use("/api/v1", rootRouter)
 app.use(globalErrorHandler)
 
