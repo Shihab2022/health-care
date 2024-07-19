@@ -38,8 +38,9 @@ const menuStyles = {
   },
 };
 
-export default function AccountMenu({data:any}) {
+export default function AccountMenu(props: any) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { data } = props;
   const open = Boolean(anchorEl);
   const router = useRouter();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -57,7 +58,12 @@ export default function AccountMenu({data:any}) {
 
   return (
     <React.Fragment>
-      <Avatar   onClick={handleClick} sx={{cursor:"pointer"}} alt={data?.name} src={data?.profilePhoto} />
+      <Avatar
+        onClick={handleClick}
+        sx={{ cursor: "pointer" }}
+        alt={data?.name}
+        src={data?.profilePhoto}
+      />
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
