@@ -1,3 +1,4 @@
+import AccountMenu from "@/components/Dashboard/AccountMenu/AccountMenu";
 import { getUserInfo, removeUser } from "@/services/auth.services";
 import { Button } from "@mui/material";
 import Link from "next/link";
@@ -13,9 +14,10 @@ const AuthButton = () => {
   return (
     <>
       {userInfo?.email ? (
-        <Button color="error" onClick={handleLogOut}>
-          Logout
-        </Button>
+        // <Button color="error" onClick={handleLogOut}>
+        //   Logout
+        // </Button>
+        <AccountMenu />
       ) : (
         <Button component={Link} href="/login">
           Login

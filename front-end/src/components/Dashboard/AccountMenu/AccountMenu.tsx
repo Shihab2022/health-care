@@ -59,12 +59,15 @@ export default function AccountMenu(props: any) {
 
   return (
     <React.Fragment>
-      <Avatar
-        onClick={handleClick}
-        sx={{ cursor: "pointer" }}
-        alt={data?.name}
-        src={data?.profilePhoto}
-      />
+      <Tooltip title="Your profile menu">
+        <Avatar
+          onClick={handleClick}
+          sx={{ cursor: "pointer" }}
+          alt={data?.name}
+          src={data?.profilePhoto}
+        />
+      </Tooltip>
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
