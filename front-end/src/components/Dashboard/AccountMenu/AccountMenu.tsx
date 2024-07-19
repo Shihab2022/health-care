@@ -10,6 +10,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const menuStyles = {
   paper: {
@@ -76,10 +77,12 @@ export default function AccountMenu(props: any) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar sx={{ background: "transparent", color: "primary.main" }} />
-          Profile
-        </MenuItem>
+        <Link href="/profile">
+          <MenuItem onClick={handleClose}>
+            <Avatar sx={{ background: "transparent", color: "primary.main" }} />
+            Profile
+          </MenuItem>
+        </Link>
 
         <Divider />
 
