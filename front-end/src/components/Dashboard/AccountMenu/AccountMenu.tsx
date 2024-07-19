@@ -38,7 +38,7 @@ const menuStyles = {
   },
 };
 
-export default function AccountMenu() {
+export default function AccountMenu({data:any}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const router = useRouter();
@@ -57,35 +57,7 @@ export default function AccountMenu() {
 
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip
-          title="Account settings"
-          componentsProps={{
-            tooltip: {
-              sx: {
-                bgcolor: "#cdd1da5c",
-                color: "primary.main", // Change text color if necessary
-              },
-            },
-          }}
-        >
-          <IconButton
-            onClick={handleClick}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            //   size='small'
-            sx={{
-              background: "#ffffff",
-              "& svg": {
-                color: "primary.main",
-              },
-            }}
-          >
-            <KeyboardArrowDownIcon />
-          </IconButton>
-        </Tooltip>
-      </Box>
+      <Avatar   onClick={handleClick} sx={{cursor:"pointer"}} alt={data?.name} src={data?.profilePhoto} />
       <Menu
         anchorEl={anchorEl}
         id="account-menu"

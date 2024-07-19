@@ -99,8 +99,8 @@ export default function DashboardDrawer({
                   <NotificationsNoneIcon color="action" />
                 </IconButton>
               </Badge>
-              <Avatar alt={data?.name} src={data?.profilePhoto} />
-              <AccountMenu />
+
+              <AccountMenu data={data} />
             </Stack>
           </Box>
         </Toolbar>
