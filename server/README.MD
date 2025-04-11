@@ -24,3 +24,7 @@ _For call a function automatically after few moment_
 ## [node-cron](https://www.npmjs.com/package/node-cron)
 
 ## [P-hero](https://github.com/Apollo-Level2-Web-Dev/PH-HealthCare-Server)
+
+## Api end point for all the api
+
+- **For Login** `/auth/login`
