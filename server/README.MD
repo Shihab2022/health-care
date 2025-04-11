@@ -42,3 +42,11 @@ _For call a function automatically after few moment_
 - **Create Doctor** `/user/create-doctor` **Post Route . Admin and Super admin can access this api.**
 - **For update Profile** `/user/update-my-profile` **Patch Route . For update profile**
 - **For Create New User** `/user/create-patient` **Post Route**
+
+## For Admin Route
+
+- **For Get All Admin Information ** `/admin` **Get Route . Admin and Super admin can access this api.**
+- **For Get Single Admin Information ** `/admin/:id` **Get Route . Admin and Super admin can access this api.**
+- **For Update Admin Information ** `/admin/:id` **Patch Route . Admin and Super admin can access this api.**
+- **For Hard Delete Admin Information ** `/admin/:id` **Delete Route . Admin and Super admin can access this api.**
+- **For Soft Delete Admin Information ** `/admin/soft/:id` **Delete Route . Admin and Super admin can access this api.**
