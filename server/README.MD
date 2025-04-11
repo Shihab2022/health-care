@@ -25,12 +25,20 @@ _For call a function automatically after few moment_
 
 ## [P-hero](https://github.com/Apollo-Level2-Web-Dev/PH-HealthCare-Server)
 
-## Api end point for all the api
+# Api end point for all the api
 
-# For Auth
+## For Auth
 
 - **For Login** `/auth/login`
 - **For Refresh Token** `/auth/refresh-token`
 - **For Forgot Password** `/auth/forgot-password`
 - **For Change Password** `/auth/change-password`
 - **For Reset Password** `/auth/reset-password`
+
+## For User Route
+
+- **For Login** `/user/me` **Get Route for get user information**
+- **Create Admin** `/user/create-admin` **Post Route . Admin and Super admin can access this api.**
+- **Create Doctor** `/user/create-doctor` **Post Route . Admin and Super admin can access this api.**
+- **For update Profile** `/user/update-my-profile` **Patch Route . For update profile**
+- **For Create New User** `/user/create-patient` **Post Route**
