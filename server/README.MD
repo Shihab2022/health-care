@@ -27,4 +27,10 @@ _For call a function automatically after few moment_
 
 ## Api end point for all the api
 
+# For Auth
+
 - **For Login** `/auth/login`
+- **For Refresh Token** `/auth/refresh-token`
+- **For Forgot Password** `/auth/forgot-password`
+- **For Change Password** `/auth/change-password`
+- **For Reset Password** `/auth/reset-password`
