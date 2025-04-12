@@ -50,3 +50,11 @@ _For call a function automatically after few moment_
 - **For Update Admin Information ** `/admin/:id` **Patch Route . Admin and Super admin can access this api.**
 - **For Hard Delete Admin Information ** `/admin/:id` **Delete Route . Admin and Super admin can access this api.**
 - **For Soft Delete Admin Information ** `/admin/soft/:id` **Delete Route . Admin and Super admin can access this api.**
+
+## For Doctor Route
+
+- **For Get All Doctor Information ** `/doctor` **Get Route . Admin and Super admin can access this api.**
+- **For Get Single Doctor Information ** `/doctor/:id` **Get Route . Admin , Doctor and Super admin can access this api.**
+- **Update Doctor Information ** `/doctor/:id` **Patch Route . Admin and Super admin can access this api.**
+- **Delete Doctor Information ** `/doctor/:id` **Delete Route . Admin and Super admin can access this api.**
+- **Soft Delete Doctor Information ** `/doctor/soft/:id` **Delete Route . Admin and Super admin can access this api.**
