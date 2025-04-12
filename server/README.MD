@@ -58,3 +58,9 @@ _For call a function automatically after few moment_
 - **Update Doctor Information ** `/doctor/:id` **Patch Route . Admin and Super admin can access this api.**
 - **Delete Doctor Information ** `/doctor/:id` **Delete Route . Admin and Super admin can access this api.**
 - **Soft Delete Doctor Information ** `/doctor/soft/:id` **Delete Route . Admin and Super admin can access this api.**
+
+## For Specialties Route
+
+- **For Get All Specialties Doctor Information ** `/specialties` **Get Route . Admin and Super admin can access this api.**
+- **For Create Specialties Doctor ** `/specialties` **Post Route . Admin and Super admin can access this api.**
+- **For Delete Specialties Doctor ** `/specialties/:id` **Delete Route . Admin and Super admin can access this api.**
