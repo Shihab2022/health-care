@@ -64,3 +64,11 @@ _For call a function automatically after few moment_
 - **For Get All Specialties Doctor Information ** `/specialties` **Get Route . Admin and Super admin can access this api.**
 - **For Create Specialties Doctor ** `/specialties` **Post Route . Admin and Super admin can access this api.**
 - **For Delete Specialties Doctor ** `/specialties/:id` **Delete Route . Admin and Super admin can access this api.**
+
+## Patient Route
+
+- **For Get All Patient Information** `/patient`
+- **For Get Single Patient Information** `/patient/:id`
+- **For Update Single Patient Information** `/patient/:id` **Patch route for update user information**
+- **For Delete Single Patient Information** `/patient/:id` **Delete route for delete user information**
+- **For Delete Single Patient Information** `/patient/soft/:id` **Delete route for delete user information**
