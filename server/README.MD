@@ -93,3 +93,8 @@ _For call a function automatically after few moment_
 - **For Get Single Appointment Information ** `/appointment/my-appointment` **Get Route . Doctor and Patient can access this api.**
 - **For Create Appointment** `/appointment` **Post Route . Patient can access this api.**
 - **Change Appointment Status** `/appointment/status/:id` **Patch Route . Admin Doctor and Super admin can access this api.**
+
+## Payment Route
+
+- **For Get payment Information** `/payment/ipn`
+- **Create payment** `/payment/init-payment/:appointmentId` **Post Route**
