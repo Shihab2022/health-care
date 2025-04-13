@@ -79,3 +79,10 @@ _For call a function automatically after few moment_
 - **For Get Single Schedule Information ** `/schedule/:id` **Get Route . Admin Doctor and Super admin can access this api.**
 - **For Create Schedule** `/schedule` **Post Route . Admin and Super admin can access this api.**
 - **For Delete Schedule** `/schedule` **Delete Route . Admin and Super admin can access this api.**
+
+## Doctor Schedule Route
+
+- **For Get All Doctor Schedule Information ** `/doctor-schedule` **Get Route .**
+- **For Get Single Schedule Information ** `/doctor-schedule/my-schedule` **Get Route . Doctor can access this api.**
+- **For Create Schedule** `/doctor-schedule` **Post Route . Doctor can access this api.**
+- **For Delete Schedule** `/doctor-schedule/:id` **Delete Route . Admin Doctor and Super admin can access this api.**
