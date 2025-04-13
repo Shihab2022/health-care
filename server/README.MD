@@ -104,3 +104,8 @@ _For call a function automatically after few moment_
 - **For Get payment Information** `/prescription` **Get Route . Admin and Super admin can access this api .**
 - **Create Prescription** `/prescription/` **Post Route .Doctor Can access this api .**
 - **Get Prescription** `/prescription/my-prescription` **Get Route .Patient Can access this api .**
+
+## Review Route
+
+- **For Get all review Information** `/review`
+- **Create Review** `/review/` **Post Route .Patient Can access this api .**
