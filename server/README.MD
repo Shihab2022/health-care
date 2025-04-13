@@ -72,3 +72,10 @@ _For call a function automatically after few moment_
 - **For Update Single Patient Information** `/patient/:id` **Patch route for update user information**
 - **For Delete Single Patient Information** `/patient/:id` **Delete route for delete user information**
 - **For Delete Single Patient Information** `/patient/soft/:id` **Delete route for delete user information**
+
+## Schedule Route
+
+- **For Get All Schedule Information ** `/schedule` **Get Route . Admin Doctor and Super admin can access this api.**
+- **For Get Single Schedule Information ** `/schedule/:id` **Get Route . Admin Doctor and Super admin can access this api.**
+- **For Create Schedule** `/schedule` **Post Route . Admin and Super admin can access this api.**
+- **For Delete Schedule** `/schedule` **Delete Route . Admin and Super admin can access this api.**
