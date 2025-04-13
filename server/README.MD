@@ -98,3 +98,9 @@ _For call a function automatically after few moment_
 
 - **For Get payment Information** `/payment/ipn`
 - **Create payment** `/payment/init-payment/:appointmentId` **Post Route**
+
+## Prescription Route
+
+- **For Get payment Information** `/prescription` **Get Route . Admin and Super admin can access this api .**
+- **Create Prescription** `/prescription/` **Post Route .Doctor Can access this api .**
+- **Get Prescription** `/prescription/my-prescription` **Get Route .Patient Can access this api .**
