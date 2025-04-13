@@ -109,3 +109,7 @@ _For call a function automatically after few moment_
 
 - **For Get all review Information** `/review`
 - **Create Review** `/review/` **Post Route .Patient Can access this api .**
+
+## Meta Route
+
+- **For Get dashboard meta data** `/meta`
