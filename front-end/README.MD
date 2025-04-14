@@ -8,3 +8,7 @@
 } -->
 
 # This side is not fully completed , we are increase features day by day .
+
+https://themewagon.com/blog/responsive-templates-for-medical-websites/
+https://technext.github.io/medicalcenter/index.html
+https://technext.github.io/live-doc/v1.0.0/index.html#!
