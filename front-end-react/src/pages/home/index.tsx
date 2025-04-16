@@ -1,5 +1,6 @@
 import Header from '../../ui-component/header';
 import Features from './features';
+import FunFacts from './funFacts';
 import Schedule from './Schedule';
 import Slider from './slider';
 
@@ -11,6 +12,7 @@ const HomePageOne = () => {
       <Slider />
       <Schedule />
       <Features />
+      <FunFacts />
     </>
   );
 };
