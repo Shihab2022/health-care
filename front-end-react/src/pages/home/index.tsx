@@ -3,6 +3,7 @@ import Features from './features';
 import FunFacts from './funFacts';
 import Schedule from './Schedule';
 import Slider from './slider';
+import WhyChooseUs from './whyChooseUs';
 
 const HomePageOne = () => {
   return (
@@ -13,6 +14,7 @@ const HomePageOne = () => {
       <Schedule />
       <Features />
       <FunFacts />
+      <WhyChooseUs />
     </>
   );
 };
