@@ -3,6 +3,7 @@ import CallToAction from './CallToAction';
 import Features from './features';
 import FunFacts from './funFacts';
 import PortfolioSection from './PortfolioSection';
+import PricingTable from './PricingTable';
 import Schedule from './Schedule';
 import ServicesSection from './ServicesSection';
 import Slider from './slider';
@@ -21,6 +22,7 @@ const HomePageOne = () => {
       <CallToAction />
       <PortfolioSection />
       <ServicesSection />
+      <PricingTable />
     </>
   );
 };
