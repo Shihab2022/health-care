@@ -9,7 +9,7 @@ const WhyChooseUs = () => {
           </h2>
           <div className='flex justify-center mb-4'>
             <img
-              src='/img/section-img.png'
+              src='/src/img/section-img.png'
               alt='Section divider'
               className='h-2'
             />
