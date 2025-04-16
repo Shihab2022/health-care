@@ -1,4 +1,5 @@
 import Header from '../../ui-component/header';
+import Schedule from './Schedule';
 import Slider from './slider';
 
 const HomePageOne = () => {
@@ -7,6 +8,7 @@ const HomePageOne = () => {
       {' '}
       <Header />
       <Slider />
+      <Schedule />
     </>
   );
 };
