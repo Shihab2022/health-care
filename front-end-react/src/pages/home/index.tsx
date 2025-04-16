@@ -4,6 +4,7 @@ import Features from './features';
 import FunFacts from './funFacts';
 import PortfolioSection from './PortfolioSection';
 import Schedule from './Schedule';
+import ServicesSection from './ServicesSection';
 import Slider from './slider';
 import WhyChooseUs from './whyChooseUs';
 
@@ -19,6 +20,7 @@ const HomePageOne = () => {
       <WhyChooseUs />
       <CallToAction />
       <PortfolioSection />
+      <ServicesSection />
     </>
   );
 };
