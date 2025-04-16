@@ -1,4 +1,5 @@
 import Header from '../../ui-component/header';
+import Features from './features';
 import Schedule from './Schedule';
 import Slider from './slider';
 
@@ -9,6 +10,7 @@ const HomePageOne = () => {
       <Header />
       <Slider />
       <Schedule />
+      <Features />
     </>
   );
 };
