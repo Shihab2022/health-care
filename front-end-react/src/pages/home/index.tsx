@@ -1,4 +1,5 @@
 import Header from '../../ui-component/header';
+import Appointment from './Appointment';
 import BlogSection from './BlogSection';
 import CallToAction from './CallToAction';
 import Clients from './ClientSlider';
@@ -27,6 +28,7 @@ const HomePageOne = () => {
       <PricingTable />
       <BlogSection />
       <Clients />
+      <Appointment />
     </>
   );
 };
