@@ -1,4 +1,5 @@
 import Header from '../../ui-component/header';
+import BlogSection from './BlogSection';
 import CallToAction from './CallToAction';
 import Features from './features';
 import FunFacts from './funFacts';
@@ -23,6 +24,7 @@ const HomePageOne = () => {
       <PortfolioSection />
       <ServicesSection />
       <PricingTable />
+      <BlogSection />
     </>
   );
 };
