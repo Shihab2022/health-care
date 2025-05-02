@@ -33,14 +33,14 @@ const Appointment = () => {
     }));
   };
 
-  const handleSelectChange = (field, value) => {
+  const handleSelectChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     // Handle form submission here
     console.log(formData);
