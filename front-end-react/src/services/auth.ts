@@ -13,3 +13,15 @@ export const registerUserApi = async (params: any) => {
   });
   return res;
 };
+
+export const loginUserApi = async (params: any) => {
+
+  const res = await apiHandler({
+    baseURL:  import.meta.env.VITE_API_ENDPOINT,
+    path: "/auth/login",
+    axiosMethod: "post",
+    formData: false,
+    params: params,
+  });
+  return res;
+};

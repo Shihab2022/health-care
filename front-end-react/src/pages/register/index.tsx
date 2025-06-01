@@ -21,15 +21,6 @@ const Register = () => {
 
   const onSubmit =async (data: FormData) => {
     console.log(data);
-
-
-//     { "password": "123456",
-//  "patient":{
-//      "email": "patient2@gmail.com",
-//    "name": "Md. Fahim", 
-//    "contactNumber": "01111111111", 
-//    "address": "Dhaka, BD"
-//     } }
 const params={
     password:data?.password,
     patient:{
