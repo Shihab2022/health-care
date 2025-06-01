@@ -2,6 +2,7 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import LoginPage from "../pages/login";
 import HomePageOne from "../pages/home";
+import Register from "../pages/register";
 export default function Router() {
   return useRoutes([
     // {
@@ -332,6 +333,7 @@ export default function Router() {
     // },
     {  path: "/", element:  <HomePageOne /> },
     {  path: "/login", element: <LoginPage /> },
+    {  path: "/register", element: <Register /> },
     { path: "*", element: <Navigate to="/404" replace /> },
   ]);
 }
