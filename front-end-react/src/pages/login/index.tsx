@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { loginUserApi } from "../../services/auth";
+import { useDispatch } from "react-redux";
+import { SET_TOKEN } from "../../store/user";
 type LoginFormData = {
   email: string;
   password: string;
 };
 const LoginPage = () => {
     const navigate=useNavigate()
+    const dispatch=useDispatch()
       const {
     register,
     handleSubmit,
@@ -16,6 +19,10 @@ const LoginPage = () => {
     console.log(data);
     try {
         const res=await  loginUserApi(data)
+        if(res?.data?.success){
+                    dispatch({ type: SET_TOKEN, token: res?.data?.data?.accessToken });
+
+        }
         console.log({res})
     } catch (error) {
         console.log(error)

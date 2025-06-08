@@ -16,6 +16,7 @@ export const commonSlice = createSlice({
     //   state.info = action.user;
     // },
     SET_TOKEN: (state: any, action: any) => {
+      console.log({"action.token":action.token})
       state.token = action.token;
     },
     SET_ORG_NAME: (state: { info: any; }, action: { payload: any; }) => {
