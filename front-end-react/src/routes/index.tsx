@@ -5,6 +5,7 @@ import HomePageOne from "../pages/home";
 import Register from "../pages/register";
 import Page404 from "../pages/404";
 import CreateDoctor from "../pages/doctor/createDoctor";
+import CreateSpecialties from "../pages/doctor/createSpecialties";
 export default function Router() {
   return useRoutes([    {
         path: "/create",
@@ -13,6 +14,13 @@ export default function Router() {
             path: "/create/doctor",
             element: (
                   <CreateDoctor />
+
+            ),
+          },
+          {
+            path: "/create/specialties",
+            element: (
+                <CreateSpecialties />
 
             ),
           },
