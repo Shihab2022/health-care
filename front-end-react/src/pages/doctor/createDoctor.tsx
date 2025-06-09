@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useForm } from 'react-hook-form';
+import { createDoctor } from '../../services/doctor';
 export default function CreateDoctor() {
     const {
     register,
@@ -10,7 +11,7 @@ export default function CreateDoctor() {
   } = useForm({
     defaultValues: {
       password: "",
-      admin: {
+      doctor: {
         name: "",
         email: "",
         contactNumber: "",
@@ -26,10 +27,16 @@ export default function CreateDoctor() {
     }
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit =async (data: any) => {
     console.log(data);
-   
-    reset(); 
+       try {
+           const res=await createDoctor(data)
+           console.log({res})
+       } catch (error) {
+           console.log({error})
+           
+       }
+    // reset(); 
   };
   return (
 <div className="w-3/4 px-[300px] py-[50px]">
@@ -43,26 +50,26 @@ export default function CreateDoctor() {
           <div className="mb-4">
             <label className="block uppercase tracking-wide text-xs font-bold">Name</label>
             <input
-              className={`w-full shadow-inner p-4 border ${errors.admin?.name ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full shadow-inner p-4 border ${errors.doctor?.name ? 'border-red-500' : 'border-gray-300'}`}
               type="text"
-              {...register("admin.name", { required: "Name is required" })}
+              {...register("doctor.name", { required: "Name is required" })}
               placeholder="Enter Doctor Name"
             />
-            {errors.admin?.name && (
-              <p className="text-red-500 text-xs mt-1">{errors.admin.name.message}</p>
+            {errors.doctor?.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.doctor.name.message}</p>
             )}
           </div>
           
           <div className="mb-4">
             <label className="block uppercase tracking-wide text-xs font-bold">Address</label>
             <input
-              className={`w-full shadow-inner p-4 border ${errors.admin?.address ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full shadow-inner p-4 border ${errors.doctor?.address ? 'border-red-500' : 'border-gray-300'}`}
               type="text"
-              {...register("admin.address", { required: "Address is required" })}
+              {...register("doctor.address", { required: "Address is required" })}
               placeholder="Enter Address"
             />
-            {errors.admin?.address && (
-              <p className="text-red-500 text-xs mt-1">{errors.admin.address.message}</p>
+            {errors.doctor?.address && (
+              <p className="text-red-500 text-xs mt-1">{errors.doctor.address.message}</p>
             )}
           </div>
           
@@ -70,9 +77,9 @@ export default function CreateDoctor() {
             <div className="md:flex-1 md:pr-3">
               <label className="block uppercase tracking-wide text-xs font-bold">Experience</label>
               <input
-                className={`w-full shadow-inner p-4 border ${errors.admin?.experience ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full shadow-inner p-4 border ${errors.doctor?.experience ? 'border-red-500' : 'border-gray-300'}`}
                 type="number"
-                {...register("admin.experience", { 
+                {...register("doctor.experience", { 
                   required: "Experience is required",
                   min: {
                     value: 0,
@@ -82,16 +89,16 @@ export default function CreateDoctor() {
                 })}
                 placeholder="Years of Experience"
               />
-              {errors.admin?.experience && (
-                <p className="text-red-500 text-xs mt-1">{errors.admin.experience.message}</p>
+              {errors.doctor?.experience && (
+                <p className="text-red-500 text-xs mt-1">{errors.doctor.experience.message}</p>
               )}
             </div>
             <div className="md:flex-1 md:pl-3">
               <label className="block uppercase tracking-wide text-xs font-bold">Appointment Fee</label>
               <input
-                className={`w-full shadow-inner p-4 border ${errors.admin?.appointmentFee ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full shadow-inner p-4 border ${errors.doctor?.appointmentFee ? 'border-red-500' : 'border-gray-300'}`}
                 type="number"
-                {...register("admin.appointmentFee", { 
+                {...register("doctor.appointmentFee", { 
                   required: "Appointment fee is required",
                   min: {
                     value: 0,
@@ -101,8 +108,8 @@ export default function CreateDoctor() {
                 })}
                 placeholder="Appointment Fee"
               />
-              {errors.admin?.appointmentFee && (
-                <p className="text-red-500 text-xs mt-1">{errors.admin.appointmentFee.message}</p>
+              {errors.doctor?.appointmentFee && (
+                <p className="text-red-500 text-xs mt-1">{errors.doctor.appointmentFee.message}</p>
               )}
             </div>
           </div>
@@ -111,25 +118,25 @@ export default function CreateDoctor() {
             <div className="md:flex-1 md:pr-3">
               <label className="block uppercase tracking-wide text-xs font-bold">Qualification</label>
               <input
-                className={`w-full shadow-inner p-4 border ${errors.admin?.qualification ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full shadow-inner p-4 border ${errors.doctor?.qualification ? 'border-red-500' : 'border-gray-300'}`}
                 type="text"
-                {...register("admin.qualification", { required: "Qualification is required" })}
+                {...register("doctor.qualification", { required: "Qualification is required" })}
                 placeholder="Qualification"
               />
-              {errors.admin?.qualification && (
-                <p className="text-red-500 text-xs mt-1">{errors.admin.qualification.message}</p>
+              {errors.doctor?.qualification && (
+                <p className="text-red-500 text-xs mt-1">{errors.doctor.qualification.message}</p>
               )}
             </div>
             <div className="md:flex-1 md:pl-3">
               <label className="block uppercase tracking-wide text-xs font-bold">Registration Number</label>
               <input
-                className={`w-full shadow-inner p-4 border ${errors.admin?.registrationNumber ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full shadow-inner p-4 border ${errors.doctor?.registrationNumber ? 'border-red-500' : 'border-gray-300'}`}
                 type="text"
-                {...register("admin.registrationNumber", { required: "Registration number is required" })}
+                {...register("doctor.registrationNumber", { required: "Registration number is required" })}
                 placeholder="Registration Number"
               />
-              {errors.admin?.registrationNumber && (
-                <p className="text-red-500 text-xs mt-1">{errors.admin.registrationNumber.message}</p>
+              {errors.doctor?.registrationNumber && (
+                <p className="text-red-500 text-xs mt-1">{errors.doctor.registrationNumber.message}</p>
               )}
             </div>
           </div>
@@ -138,25 +145,25 @@ export default function CreateDoctor() {
             <div className="md:flex-1 md:pr-3">
               <label className="block uppercase tracking-wide text-xs font-bold">Current Working Place</label>
               <input
-                className={`w-full shadow-inner p-4 border ${errors.admin?.currentWorkingPlace ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full shadow-inner p-4 border ${errors.doctor?.currentWorkingPlace ? 'border-red-500' : 'border-gray-300'}`}
                 type="text"
-                {...register("admin.currentWorkingPlace", { required: "Current workplace is required" })}
+                {...register("doctor.currentWorkingPlace", { required: "Current workplace is required" })}
                 placeholder="Current Working Place"
               />
-              {errors.admin?.currentWorkingPlace && (
-                <p className="text-red-500 text-xs mt-1">{errors.admin.currentWorkingPlace.message}</p>
+              {errors.doctor?.currentWorkingPlace && (
+                <p className="text-red-500 text-xs mt-1">{errors.doctor.currentWorkingPlace.message}</p>
               )}
             </div>
             <div className="md:flex-1 md:pl-3">
               <label className="block uppercase tracking-wide text-xs font-bold">Designation</label>
               <input
-                className={`w-full shadow-inner p-4 border ${errors.admin?.designation ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full shadow-inner p-4 border ${errors.doctor?.designation ? 'border-red-500' : 'border-gray-300'}`}
                 type="text"
-                {...register("admin.designation", { required: "Designation is required" })}
+                {...register("doctor.designation", { required: "Designation is required" })}
                 placeholder="Designation"
               />
-              {errors.admin?.designation && (
-                <p className="text-red-500 text-xs mt-1">{errors.admin.designation.message}</p>
+              {errors.doctor?.designation && (
+                <p className="text-red-500 text-xs mt-1">{errors.doctor.designation.message}</p>
               )}
             </div>
           </div>
@@ -171,21 +178,21 @@ export default function CreateDoctor() {
           <div className="mb-4">
             <label className="block uppercase tracking-wide text-xs font-bold">Phone</label>
             <input
-              className={`w-full shadow-inner p-4 border ${errors.admin?.contactNumber ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full shadow-inner p-4 border ${errors.doctor?.contactNumber ? 'border-red-500' : 'border-gray-300'}`}
               type="tel"
-              {...register("admin.contactNumber", { required: "Phone number is required" })}
+              {...register("doctor.contactNumber", { required: "Phone number is required" })}
               placeholder="+880100000000"
             />
-            {errors.admin?.contactNumber && (
-              <p className="text-red-500 text-xs mt-1">{errors.admin.contactNumber.message}</p>
+            {errors.doctor?.contactNumber && (
+              <p className="text-red-500 text-xs mt-1">{errors.doctor.contactNumber.message}</p>
             )}
           </div>
           <div className="mb-4">
             <label className="block uppercase tracking-wide text-xs font-bold">Email</label>
             <input
-              className={`w-full shadow-inner p-4 border ${errors.admin?.email ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full shadow-inner p-4 border ${errors.doctor?.email ? 'border-red-500' : 'border-gray-300'}`}
               type="email"
-              {...register("admin.email", { 
+              {...register("doctor.email", { 
                 required: "Email is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -194,8 +201,8 @@ export default function CreateDoctor() {
               })}
               placeholder="contact@acme.co"
             />
-            {errors.admin?.email && (
-              <p className="text-red-500 text-xs mt-1">{errors.admin.email.message}</p>
+            {errors.doctor?.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.doctor.email.message}</p>
             )}
           </div>
           <div className="mb-4">
@@ -229,7 +236,7 @@ export default function CreateDoctor() {
               className="opacity-0 absolute inset-0 w-full h-full"
               type="file"
               accept="image/*"
-              {...register("admin.profilePhoto")}
+              {...register("doctor.profilePhoto")}
             />
             Add Cover Image
           </div>

@@ -40,6 +40,7 @@ const createDoctor = async (req: any) => {
         req.body.doctor.profilePhoto = uploadToCloudinary?.secure_url
     }
     const data = req.body
+    console.log({data})
     const hashPass = await bcrypt.hash(data.password, 12)
     const userData = {
         password: hashPass,
