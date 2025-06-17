@@ -1,11 +1,11 @@
-export const dateFormatter = (value: string) => {
-    const date = new Date(value);
-    // Extract year, month, and day
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Adding 1 because getMonth() returns zero-based month index
-    const day = date.getDate().toString().padStart(2, "0");
-    // Construct the desired format
-    const formattedDate = `${year}-${month}-${day}`;
+import dayjs from "dayjs";
 
-    return formattedDate;
+export const dateFormatter = (value: string) => {
+  const date = dayjs(value);
+  const day = date.date(); // 17 (day of month)
+  const month = date.month() + 1; // 6 (months are 0-indexed, so +1)
+  const year = date.year();
+  const formattedDate = `${day}-${month}-${year}`;
+
+  return formattedDate;
 };
