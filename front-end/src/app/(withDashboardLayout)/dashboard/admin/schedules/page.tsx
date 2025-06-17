@@ -5,15 +5,22 @@ import { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
+import {
+  useDeleteScheduleMutation,
+  useGetAllSchedulesQuery,
+} from "@/redux/api/scheduleApi";
 import dayjs from "dayjs";
 import { ISchedule } from "@/types/schedule";
 import { dateFormatter } from "@/utils/dateFormatter";
+import { toast } from "sonner";
 
 const SchedulesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [allSchedule, setAllSchedule] = useState<any>([]);
   const { data, isLoading } = useGetAllSchedulesQuery({});
+
+  const [deleteSchedule, { isLoading: isDeleteLoading, isError, isSuccess }] =
+    useDeleteScheduleMutation();
 
   const schedules = data?.schedules?.data;
   const meta = data?.meta;
@@ -28,10 +35,19 @@ const SchedulesPage = () => {
           endTime: dayjs(schedule?.endDate).format("hh:mm a"),
         };
       });
+      console.log({ schedules });
+      console.log({ updateData });
       setAllSchedule(updateData);
     }
   }, [schedules, isLoading]);
-
+  const handleDelete = async (row: ISchedule) => {
+    try {
+      await deleteSchedule(row?.id).unwrap();
+      toast.success("Schedule deleted successfully!");
+    } catch (error) {
+      toast.error("Failed to delete schedule.");
+    }
+  };
   const columns: GridColDef[] = [
     { field: "startDate", headerName: "Start Date", flex: 1 },
     { field: "endDate", headerName: "End Date", flex: 1 },
@@ -47,7 +63,10 @@ const SchedulesPage = () => {
         return (
           <Box>
             <IconButton aria-label="delete">
-              <DeleteIcon sx={{ color: "red" }} />
+              <DeleteIcon
+                onClick={() => handleDelete(row)}
+                sx={{ color: "red" }}
+              />
             </IconButton>
             <IconButton aria-label="delete">
               <EditIcon sx={{}} />
@@ -61,7 +80,7 @@ const SchedulesPage = () => {
     <Box>
       <Button onClick={() => setIsModalOpen(true)}>Create Schedule</Button>
       <ScheduleModal open={isModalOpen} setOpen={setIsModalOpen} />
-      {!isLoading ? (
+      {!isLoading || !isDeleteLoading ? (
         <Box my={2}>
           <DataGrid rows={allSchedule ?? []} columns={columns} />
         </Box>
