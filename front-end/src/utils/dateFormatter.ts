@@ -5,7 +5,7 @@ export const dateFormatter = (value: string) => {
   const day = date.date(); // 17 (day of month)
   const month = date.month() + 1; // 6 (months are 0-indexed, so +1)
   const year = date.year();
-  const formattedDate = `${day}-${month}-${year}`;
+  const formattedDate = `${year}-${month}-${day}`;
 
   return formattedDate;
 };
