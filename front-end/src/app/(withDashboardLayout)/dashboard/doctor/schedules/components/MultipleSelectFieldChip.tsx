@@ -8,6 +8,16 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 
+export const getTimeIn12HourFormat = (dateTimeString: string): string => {
+  const date: Date = new Date(dateTimeString);
+  const hours: number = date.getHours();
+  const minutes: number = date.getMinutes();
+  const ampm: string = hours >= 12 ? "PM" : "AM";
+  const formattedHours: number = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedMinutes: string =
+    minutes < 10 ? "0" + minutes : minutes.toString();
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+};
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -18,30 +28,6 @@ const MenuProps = {
     },
   },
 };
-
-export function getTimeIn12HourFormat(dateTimeString: string): string {
-  const date: Date = new Date(dateTimeString);
-  const hours: number = date.getHours();
-  const minutes: number = date.getMinutes();
-  const ampm: string = hours >= 12 ? "PM" : "AM";
-  const formattedHours: number = hours % 12 === 0 ? 12 : hours % 12;
-  const formattedMinutes: string =
-    minutes < 10 ? "0" + minutes : minutes.toString();
-  return `${formattedHours}:${formattedMinutes} ${ampm}`;
-}
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
   return {

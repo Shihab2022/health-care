@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, Button, IconButton, Pagination, Stack } from "@mui/material";
 import ScheduleModal from "./components/ScheduleModal";
 import { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -17,13 +17,18 @@ import { toast } from "sonner";
 const SchedulesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [allSchedule, setAllSchedule] = useState<any>([]);
-  const { data, isLoading } = useGetAllSchedulesQuery({});
+  const query: Record<string, any> = {};
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
+  query["page"] = page;
+  query["limit"] = limit;
+  const { data, isLoading } = useGetAllSchedulesQuery({ ...query });
 
   const [deleteSchedule, { isLoading: isDeleteLoading, isError, isSuccess }] =
     useDeleteScheduleMutation();
-
   const schedules = data?.schedules?.data;
-  const meta = data?.meta;
+  const meta = data?.schedules?.meta;
   useEffect(() => {
     if (schedules?.length) {
       const updateData = schedules?.map((schedule: ISchedule) => {
@@ -35,8 +40,7 @@ const SchedulesPage = () => {
           endTime: dayjs(schedule?.endDate).format("hh:mm a"),
         };
       });
-      console.log({ schedules });
-      console.log({ updateData });
+      setPage(meta?.page || 1);
       setAllSchedule(updateData);
     }
   }, [schedules, isLoading]);
@@ -83,6 +87,24 @@ const SchedulesPage = () => {
       {!isLoading || !isDeleteLoading ? (
         <Box my={2}>
           <DataGrid rows={allSchedule ?? []} columns={columns} />
+
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <Pagination
+              count={Math.ceil((meta?.total || 0) / meta?.limit || 1)}
+              page={page || 1}
+              onChange={(event, value) => setPage(value)}
+              variant="outlined"
+              shape="rounded"
+            />
+          </Stack>
         </Box>
       ) : (
         <h1>Loading.....</h1>
