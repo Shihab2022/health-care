@@ -31,12 +31,12 @@ const DoctorUpdatePage = ({ params }: TParams) => {
 
   const handleFormSubmit = async (values: FieldValues) => {
     values.experience = Number(values.experience);
-    values.apointmentFee = Number(values.apointmentFee);
+    values.appointmentFee = Number(values.appointmentFee);
     values.id = id;
     // console.log({ id: values.id, body: values });
-
+    const { email, ...rest } = values;
     try {
-      const res = await updateDoctor({ id: values.id, body: values }).unwrap();
+      const res = await updateDoctor({ id: values.id, body: rest }).unwrap();
       if (res?.id) {
         toast.success("Doctor Updated Successfully!!!");
         router.push("/dashboard/admin/doctors");
@@ -54,7 +54,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
     registrationNumber: data?.registrationNumber || "",
     gender: data?.gender || "",
     experience: data?.experience || 0,
-    apointmentFee: data?.apointmentFee || 0,
+    appointmentFee: data?.appointmentFee || 0,
     qualification: data?.qualification || "",
     currentWorkingPlace: data?.currentWorkingPlace || "",
     designation: data?.designation || "",
@@ -87,6 +87,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
                 label="Email"
                 fullWidth={true}
                 sx={{ mb: 2 }}
+                disabled
               />
             </Grid>
 
@@ -133,9 +134,9 @@ const DoctorUpdatePage = ({ params }: TParams) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <PHInput
-                name="apointmentFee"
+                name="appointmentFee"
                 type="number"
-                label="ApointmentFee"
+                label="Appointment Fee"
                 fullWidth={true}
                 sx={{ mb: 2 }}
               />
