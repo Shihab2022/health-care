@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import assets from "@/assets";
 
 const TopRatedDoctors = async () => {
   const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3");
@@ -39,12 +40,12 @@ const TopRatedDoctors = async () => {
 
       <Container sx={{ margin: "30px auto" }}>
         <Grid container spacing={2}>
-          {doctors.map((doctor: any) => (
+          {doctors?.map((doctor: any) => (
             <Grid item key={doctor.id} md={4}>
               <Card>
                 <Box>
                   <Image
-                    src={doctor.profilePhoto}
+                    src={doctor?.profilePhoto || assets?.images?.doctorAvatar}
                     alt="doctor"
                     width={500}
                     height={100}
