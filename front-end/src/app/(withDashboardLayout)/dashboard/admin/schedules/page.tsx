@@ -11,7 +11,9 @@ import {
 } from "@/redux/api/scheduleApi";
 import dayjs from "dayjs";
 import { ISchedule } from "@/types/schedule";
-import { dateFormatter } from "@/utils/dateFormatter";
+import {
+  dateFormatterForTable,
+} from "@/utils/dateFormatter";
 import { toast } from "sonner";
 
 const SchedulesPage = () => {
@@ -19,7 +21,7 @@ const SchedulesPage = () => {
   const [allSchedule, setAllSchedule] = useState<any>([]);
   const query: Record<string, any> = {};
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(15);
 
   query["page"] = page;
   query["limit"] = limit;
@@ -31,17 +33,7 @@ const SchedulesPage = () => {
   const meta = data?.schedules?.meta;
   useEffect(() => {
     if (schedules?.length) {
-      const updateData = schedules?.map((schedule: ISchedule) => {
-        return {
-          id: schedule?.id,
-          startDate: dateFormatter(schedule.startDate),
-          endDate: dateFormatter(schedule.endDate),
-          startTime: dayjs(schedule?.startDate).format("hh:mm a"),
-          endTime: dayjs(schedule?.endDate).format("hh:mm a"),
-        };
-      });
       setPage(meta?.page || 1);
-      setAllSchedule(updateData);
     }
   }, [schedules, isLoading]);
   const handleDelete = async (row: ISchedule) => {
@@ -53,10 +45,38 @@ const SchedulesPage = () => {
     }
   };
   const columns: GridColDef[] = [
-    { field: "startDate", headerName: "Start Date", flex: 1 },
-    { field: "endDate", headerName: "End Date", flex: 1 },
-    { field: "startTime", headerName: "Start Time", flex: 1 },
-    { field: "endTime", headerName: "End Time", flex: 1 },
+    {
+      field: "startDate",
+      headerName: "Start Date",
+      renderCell: ({ row }) => {
+        return dateFormatterForTable(row?.startDateTime);
+      },
+      flex: 1,
+    },
+    {
+      field: "endDate",
+      headerName: "End Date",
+      renderCell: ({ row }) => {
+        return dateFormatterForTable(row?.endDateTime);
+      },
+      flex: 1,
+    },
+    {
+      field: "startTime",
+      headerName: "Start Time",
+      renderCell: ({ row }) => {
+        return dayjs(row?.startDateTime).format("h:mm A");
+      },
+      flex: 1,
+    },
+    {
+      field: "endTime",
+      headerName: "End Time",
+      renderCell: ({ row }) => {
+        return dayjs(row?.endDateTime).format("h:mm A");
+      },
+      flex: 1,
+    },
     {
       field: "action",
       headerName: "Action",
@@ -86,7 +106,7 @@ const SchedulesPage = () => {
       <ScheduleModal open={isModalOpen} setOpen={setIsModalOpen} />
       {!isLoading || !isDeleteLoading ? (
         <Box my={2}>
-          <DataGrid rows={allSchedule ?? []} columns={columns} />
+          <DataGrid rows={schedules ?? []} columns={columns} />
 
           <Stack
             direction="row"

@@ -10,8 +10,7 @@ export const dateFormatter = (value: string) => {
   return formattedDate;
 };
 
-
-export const  getTimeIn12HourFormat =(dateTimeString: string): string =>{
+export const getTimeIn12HourFormat = (dateTimeString: string): string => {
   const date: Date = new Date(dateTimeString);
   const hours: number = date.getHours();
   const minutes: number = date.getMinutes();
@@ -20,4 +19,15 @@ export const  getTimeIn12HourFormat =(dateTimeString: string): string =>{
   const formattedMinutes: string =
     minutes < 10 ? "0" + minutes : minutes.toString();
   return `${formattedHours}:${formattedMinutes} ${ampm}`;
-}
+};
+
+
+export const dateFormatterForTable = (value: string) => {
+  const date = dayjs(value);
+  const day = date.date(); // 17 (day of month)
+  const month = date.month() + 1; // 6 (months are 0-indexed, so +1)
+  const year = date.year();
+  const formattedDate = `${day}-${month}-${year}`;
+
+  return formattedDate;
+};
