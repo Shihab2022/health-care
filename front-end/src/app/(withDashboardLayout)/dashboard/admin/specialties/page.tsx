@@ -10,10 +10,23 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "sonner";
+import { useDebounced } from "@/redux/hooks";
 
 const SpecialtiesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { data, isLoading } = useGetAllSpecialtiesQuery({});
+  const query: Record<string, any> = {};
+
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+
+  if (!!debouncedTerm) {
+    query["searchTerm"] = searchTerm;
+  }
+  const { data, isLoading } = useGetAllSpecialtiesQuery({ ...query });
   const [deleteSpecialty] = useDeleteSpecialtyMutation();
 
   const handleDelete = async (id: string) => {
@@ -63,7 +76,11 @@ const SpecialtiesPage = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Button onClick={() => setIsModalOpen(true)}>Create Specialty</Button>
         <SpecialtyModal open={isModalOpen} setOpen={setIsModalOpen} />
-        <TextField size="small" placeholder="Search Specialist" />
+        <TextField
+          onChange={(e) => setSearchTerm(e.target.value)}
+          size="small"
+          placeholder="Search Specialist"
+        />
       </Stack>
       {!isLoading ? (
         <Box my={2}>

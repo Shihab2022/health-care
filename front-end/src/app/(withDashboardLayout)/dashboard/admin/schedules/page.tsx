@@ -11,9 +11,7 @@ import {
 } from "@/redux/api/scheduleApi";
 import dayjs from "dayjs";
 import { ISchedule } from "@/types/schedule";
-import {
-  dateFormatterForTable,
-} from "@/utils/dateFormatter";
+import { dateFormatterForTable } from "@/utils/dateFormatter";
 import { toast } from "sonner";
 
 const SchedulesPage = () => {
