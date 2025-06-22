@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button, IconButton, Pagination, Stack } from "@mui/material";
 import ScheduleModal from "./components/ScheduleModal";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import { ISchedule } from "@/types/schedule";
 import { dateFormatterForTable } from "@/utils/dateFormatter";
 import { toast } from "sonner";
-
+import { ScheduleItem } from "@/types";
 const SchedulesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [allSchedule, setAllSchedule] = useState<any>([]);
@@ -23,12 +23,31 @@ const SchedulesPage = () => {
 
   query["page"] = page;
   query["limit"] = limit;
-  const { data, isLoading } = useGetAllSchedulesQuery({ ...query });
+  const {
+    data,
+    isLoading,
+    isSuccess: isScheduleSuccess,
+  } = useGetAllSchedulesQuery({ ...query });
 
   const [deleteSchedule, { isLoading: isDeleteLoading, isError, isSuccess }] =
     useDeleteScheduleMutation();
-  const schedules = data?.schedules?.data;
-  const meta = data?.schedules?.meta;
+  const { meta, schedules } = useMemo(() => {
+    if (isScheduleSuccess) {
+      const resData = data?.schedules?.data || [];
+      const meta = data?.schedules?.meta || {};
+      const schedules: ScheduleItem[] = [...resData]?.sort(
+        (a: ScheduleItem, b: ScheduleItem) => {
+          const timeA = new Date(a?.startDateTime).getTime();
+          const timeB = new Date(b?.startDateTime).getTime();
+          return timeA - timeB;
+        }
+      );
+      return { meta, schedules };
+    } else {
+      return { meta: {}, schedules: [] };
+    }
+  }, [data, isScheduleSuccess]);
+
   useEffect(() => {
     if (schedules?.length) {
       setPage(meta?.page || 1);
