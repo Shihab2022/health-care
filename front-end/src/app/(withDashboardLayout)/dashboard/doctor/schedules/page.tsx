@@ -7,11 +7,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { dateFormatter } from "@/utils/dateFormatter";
 import { ISchedule } from "@/types/schedule";
 import dayjs from "dayjs";
-import { useGetAllDoctorSchedulesQuery } from "@/redux/api/doctorScheduleApi";
+import {
+  useDeleteDoctorScheduleMutation,
+  useGetAllDoctorSchedulesQuery,
+} from "@/redux/api/doctorScheduleApi";
 
 const DoctorSchedulesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { data, isLoading } = useGetAllDoctorSchedulesQuery({});
+  const [deleteSchedule] = useDeleteDoctorScheduleMutation();
   const schedules = data?.doctorSchedules;
   const meta = data?.meta;
 
@@ -48,7 +52,10 @@ const DoctorSchedulesPage = () => {
       align: "center",
       renderCell: ({ row }) => {
         return (
-          <IconButton aria-label="delete">
+          <IconButton
+            onClick={() => deleteSchedule(row?.scheduleId)}
+            aria-label="delete"
+          >
             <DeleteIcon sx={{ color: "red" }} />
           </IconButton>
         );
