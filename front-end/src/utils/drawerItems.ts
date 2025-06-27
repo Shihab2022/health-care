@@ -9,108 +9,121 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AirlineSeatIndividualSuiteIcon from "@mui/icons-material/AirlineSeatIndividualSuite";
 import TryIcon from "@mui/icons-material/Try";
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import DescriptionIcon from '@mui/icons-material/Description';
-import PaymentsIcon from '@mui/icons-material/Payments';
-import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
-
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import DescriptionIcon from "@mui/icons-material/Description";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
+import PersonIcon from "@mui/icons-material/Person";
+import KeyIcon from '@mui/icons-material/Key';
 export const drawerItems = (role: UserRole): DrawerItem[] => {
-    const roleMenus: DrawerItem[] = [];
+  const defaultMenus = [
+    {
+      title: "Profile",
+      path: `${role}/profile`,
+      icon: PersonIcon,
+    },
+    {
+      title: "Change Password",
+      path: `change-password`,
+      icon: KeyIcon,
+    },
+  ];
+  const roleMenus: DrawerItem[] = [];
 
-    switch (role) {
-        case USER_ROLE.SUPER_ADMIN:
-            roleMenus.push(
-                {
-                    title: "Dashboard",
-                    path: `${role}`,
-                    icon: DashboardIcon,
-                },
-                {
-                    title: "Manage Users",
-                    path: `${role}/manage-users`,
-                    icon: GroupIcon,
-                }
-            );
-            break;
+  switch (role) {
+    case USER_ROLE.SUPER_ADMIN:
+      roleMenus.push(
+        {
+          title: "Dashboard",
+          path: `${role}`,
+          icon: DashboardIcon,
+        },
+        {
+          title: "Manage Users",
+          path: `${role}/manage-users`,
+          icon: GroupIcon,
+        }
+      );
+      break;
 
-        case USER_ROLE.ADMIN:
-            roleMenus.push(
-                {
-                    title: "Dashboard",
-                    path: `${role}`,
-                    icon: DashboardIcon,
-                },
-                {
-                    title: "Specialties",
-                    path: `${role}/specialties`,
-                    icon: TryIcon,
-                },
-                {
-                    title: "Doctors",
-                    path: `${role}/doctors`,
-                    icon: MedicalInformationIcon,
-                },
-                {
-                    title: "Schedules",
-                    path: `${role}/schedules`,
-                    icon: CalendarMonthIcon,
-                },
-                {
-                    title: "Appointments",
-                    path: `${role}/appointments`,
-                    icon: HomeRepairServiceIcon,
-                },
-                {
-                    title: "Reviews",
-                    path: `${role}/reviews`,
-                    icon: ReviewsIcon,
-                }
-            );
-            break;
+    case USER_ROLE.ADMIN:
+      roleMenus.push(
+        {
+          title: "Dashboard",
+          path: `${role}`,
+          icon: DashboardIcon,
+        },
+        {
+          title: "Specialties",
+          path: `${role}/specialties`,
+          icon: TryIcon,
+        },
+        {
+          title: "Doctors",
+          path: `${role}/doctors`,
+          icon: MedicalInformationIcon,
+        },
+        {
+          title: "Schedules",
+          path: `${role}/schedules`,
+          icon: CalendarMonthIcon,
+        },
+        {
+          title: "Appointments",
+          path: `${role}/appointments`,
+          icon: HomeRepairServiceIcon,
+        },
+        {
+          title: "Reviews",
+          path: `${role}/reviews`,
+          icon: ReviewsIcon,
+        }
+      );
+      break;
 
-        case USER_ROLE.DOCTOR:
-            roleMenus.push(
-                {
-                    title: "Dashboard",
-                    path: `${role}`,
-                    icon: DashboardIcon,
-                },
-                {
-                    title: "Schedules",
-                    path: `${role}/schedules`,
-                    icon: CalendarMonthIcon,
-                },
-                {
-                    title: "Appointments",
-                    path: `${role}/appointment`,
-                    icon: HomeRepairServiceIcon,
-                }
-            );
-            break;
+    case USER_ROLE.DOCTOR:
+      roleMenus.push(
+        {
+          title: "Dashboard",
+          path: `${role}`,
+          icon: DashboardIcon,
+        },
+        {
+          title: "Schedules",
+          path: `${role}/schedules`,
+          icon: CalendarMonthIcon,
+        },
+        {
+          title: "Appointments",
+          path: `${role}/appointment`,
+          icon: HomeRepairServiceIcon,
+        }
+      );
+      break;
 
-        case USER_ROLE.PATIENT:
-            roleMenus.push(
-                {
-                    title: "Appointments",
-                    path: `${role}/appointments`,
-                    icon: AssignmentIcon,
-                },
-                {
-                    title: "Prescriptions",
-                    path: `${role}/prescriptions`,
-                    icon: DescriptionIcon,
-                },
-                {
-                    title: "Payment History",
-                    path: `${role}/payment-history`,
-                    icon: PaymentsIcon,
-                }
-            );
-            break;
+    case USER_ROLE.PATIENT:
+      roleMenus.push(
+        {
+          title: "Appointments",
+          path: `${role}/appointments`,
+          icon: AssignmentIcon,
+        },
+        {
+          title: "Prescriptions",
+          path: `${role}/prescriptions`,
+          icon: DescriptionIcon,
+        },
+        {
+          title: "Payment History",
+          path: `${role}/payment-history`,
+          icon: PaymentsIcon,
+        }
+      );
+      break;
 
-        default:
-            break;
-    }
+    default:
+      break;
+  }
 
-    return [...roleMenus];
+  return [...roleMenus, ...defaultMenus];
 };
