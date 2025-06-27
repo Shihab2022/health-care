@@ -11,31 +11,35 @@ import { useGetAllDoctorSchedulesQuery } from "@/redux/api/doctorScheduleApi";
 
 const DoctorSchedulesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const [allSchedule, setAllSchedule] = useState<any>([]);
   const { data, isLoading } = useGetAllDoctorSchedulesQuery({});
-
   const schedules = data?.doctorSchedules;
   const meta = data?.meta;
 
-  useEffect(() => {
-    const updateData = schedules?.map((schedule: any, index: number) => {
-      return {
-        sl: index + 1,
-        id: schedule?.doctorId,
-        startDate: dateFormatter(schedule?.schedule?.startDateTime),
-        startTime: dayjs(schedule?.startDateTime).format("hh:mm a"),
-        endTime: dayjs(schedule?.endDateTime).format("hh:mm a"),
-      };
-    });
-    setAllSchedule(updateData);
-  }, [schedules]);
-
   const columns: GridColDef[] = [
-    { field: "sl", headerName: "SL" },
-    { field: "startDate", headerName: "Date", flex: 1 },
-    { field: "startTime", headerName: "Start Time", flex: 1 },
-    { field: "endTime", headerName: "End Time", flex: 1 },
+    {
+      field: "startDate",
+      headerName: "Date",
+      flex: 1,
+      renderCell: ({ row }) => {
+        return dateFormatter(row?.schedule?.startDateTime);
+      },
+    },
+    {
+      field: "startTime",
+      headerName: "Start Time",
+      flex: 1,
+      renderCell: ({ row }) => {
+        return dayjs(row?.schedule?.startDateTime).format("hh:mm a");
+      },
+    },
+    {
+      field: "endTime",
+      headerName: "End Time",
+      flex: 1,
+      renderCell: ({ row }) => {
+        return dayjs(row?.schedule?.endDateTime).format("hh:mm a");
+      },
+    },
     {
       field: "action",
       headerName: "Action",
@@ -51,7 +55,6 @@ const DoctorSchedulesPage = () => {
       },
     },
   ];
-
   return (
     <Box>
       <Button onClick={() => setIsModalOpen(true)}>
@@ -63,7 +66,11 @@ const DoctorSchedulesPage = () => {
       <Box>
         {!isLoading ? (
           <Box my={2}>
-            <DataGrid rows={allSchedule ?? []} columns={columns} />
+            <DataGrid
+              rows={schedules ?? []}
+              columns={columns}
+              getRowId={(row) => row?.scheduleId}
+            />
           </Box>
         ) : (
           <h1>Loading.....</h1>

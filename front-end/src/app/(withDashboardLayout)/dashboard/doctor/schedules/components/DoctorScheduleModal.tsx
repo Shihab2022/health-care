@@ -21,7 +21,6 @@ const DoctorScheduleModal = ({ open, setOpen }: TProps) => {
   );
 
   const [selectedScheduleIds, setSelectedScheduleIds] = useState<string[]>([]);
-
   const query: Record<string, any> = {};
 
   if (!!selectedDate) {
