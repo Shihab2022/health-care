@@ -42,7 +42,6 @@ export default function MultipleSelectChip({
 
     setSelectedIds(typeof value === "string" ? value.split(",") : value);
   };
-  console.log({ allSpecialties });
   return (
     <div>
       <FormControl sx={{ width: "100%" }}>

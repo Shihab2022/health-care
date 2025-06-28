@@ -64,7 +64,7 @@ const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
         isDeleted: false,
       })
     );
-
+    console.log({ selectedSpecialtiesIds });
     const excludedFields: Array<keyof typeof values> = [
       "email",
       "id",
