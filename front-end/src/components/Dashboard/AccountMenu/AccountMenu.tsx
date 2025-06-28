@@ -1,101 +1,230 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import Logout from "@mui/icons-material/Logout";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import React from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Tooltip,
+} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-
-const menuStyles = {
-  paper: {
-    elevation: 0,
-    overflow: "visible",
-    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-    mt: 1.5,
-    "& .MuiAvatar-root": {
-      width: 32,
-      height: 32,
-      ml: -0.5,
-      mr: 1,
-    },
-    "&:before": {
-      content: '""',
-      display: "block",
-      position: "absolute",
-      top: 0,
-      right: 14,
-      width: 10,
-      height: 10,
-      bgcolor: "background.paper",
-      transform: "translateY(-50%) rotate(45deg)",
-      zIndex: 0,
-    },
-  },
+const profileMenuStyle = {
+  color: "#A1B0CC",
+  fontSize: "30px",
+  marginRight: 1,
 };
 
+const ProfileMenuItem = ({ onClick, label, icon }: any) => {
+  return (
+    <MenuItem
+      sx={{
+        display: "flex",
+        alignItems: "center",
+      }}
+      onClick={() => onClick()}
+    >
+      {icon}
+      <Typography variant="h5" sx={{ fontSize: "15px" }}>
+        {label}
+      </Typography>
+    </MenuItem>
+  );
+};
 export default function AccountMenu(props: any) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { data } = props;
-  const open = Boolean(anchorEl);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const handleLogout = () => {
-    setAnchorEl(null);
+    setAnchorElUser(null);
     localStorage.removeItem("accessToken");
     router.push("/login");
   };
 
+  const handleOpenUserMenu = async (event: any) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const handleMenu = (value: string) => {
+    handleCloseUserMenu();
+    // switch (value) {
+    //   case "dashboard":
+    //     navigate("/");
+    //     break;
+    //   case "profile":
+    //     navigate("/account/profile");
+    //     break;
+    //   case "changePassword":
+    //     navigate("/account/password");
+    //     break;
+    //   case "manageUser":
+    //     navigate("/account/manage-users");
+    //     break;
+    //   case "logout":
+    //     handleLogout();
+    //     break;
+    //   default:
+    //     setAnchorElUser(null);
+    // }
+  };
   return (
     <React.Fragment>
-      <Tooltip title="Your profile menu">
-        <Avatar
-          onClick={handleClick}
-          sx={{ cursor: "pointer" }}
-          alt={data?.name}
-          src={data?.profilePhoto}
-        />
-      </Tooltip>
+      <Box sx={{ flexGrow: 0 }}>
+        <Stack
+          direction="row-reverse"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
+          <Tooltip title="Profile Menu">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              {/* {userInfo.profileImage ? (
+                <Avatar
+                  src={userInfo.profileImage ? userImage : userInfo.image}
+                />
+              ) : ( */}
+              <Avatar sx={{ background: "#7c4dff", color: "white" }}>
+                {/* {userInfo?.firstname?.slice(0, 1).toUpperCase()} */}
+                {"Shihab"?.slice(0, 1).toUpperCase()}
+              </Avatar>
+              {/* )} */}
+            </IconButton>
+          </Tooltip>
+          {/* {!HeaderComp && ( */}
+          <Box sx={{ color: "black" }}>
+            <Typography sx={{ textAlign: "right" }}>
+              {/* {userInfo?.email} */}
+              shihab@gmail.com
+            </Typography>
+            <Typography sx={{ textAlign: "right" }}>
+              {/* {userInfo?.organisation} */}
+              Gandu
+            </Typography>
+          </Box>
+          {/* )} */}
+        </Stack>
 
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        slotProps={{
-          ...menuStyles,
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <Link href="/profile">
-          <MenuItem onClick={handleClose}>
-            <Avatar sx={{ background: "transparent", color: "primary.main" }} />
-            Profile
-          </MenuItem>
-        </Link>
-
-        <Divider />
-
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <Logout fontSize="small" sx={{ color: "error.main" }} />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
+        <Menu
+          sx={{ mt: "45px" }}
+          id="menu-appbar"
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+          PaperProps={{
+            sx: {
+              minWidth: "250px",
+              borderRadius: "5px",
+              zIndex: 20,
+              backgroundColor: "white",
+              paddingY: "10px",
+              border: "1px solid rgba(0, 0, 0, 0.1)",
+            },
+          }}
+        >
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            sx={{ cursor: "context-menu" }}
+          >
+            <Box
+              sx={{
+                width: 56,
+                height: 56,
+                marginBottom: "5px",
+              }}
+            >
+              {/* {userInfo.profileImage ? (
+                <Avatar
+                  src={userInfo.profileImage ? userImage : userInfo.image}
+                />
+              ) : ( */}
+              <Avatar sx={{ background: "#7c4dff", color: "white" }}>
+                {"userInfo?.firstname"?.slice(0, 1).toUpperCase()}
+                {/* {userInfo?.firstname?.slice(0, 1).toUpperCase()} */}
+              </Avatar>
+              {/* )} */}
+            </Box>
+          </Stack>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              fontSize: ".9rem",
+              color: "black",
+              textAlign: "center",
+              lineHeight: ".4rem",
+              marginTop: "10px",
+            }}
+          >
+            shhab@gmail.com
+          </Typography>
+          <Typography
+            sx={{
+              color: "black",
+              textAlign: "center",
+              lineHeight: ".4rem",
+              marginTop: "13px",
+            }}
+          >
+            {/* {userInfo?.organisation} */}
+            Gandu
+          </Typography>
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            sx={{ marginTop: "10px" }}
+          >
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ boxShadow: "none" }}
+              onClick={() => handleMenu("dashboard")}
+            >
+              Dashboard
+            </Button>
+          </Stack>
+          <ProfileMenuItem
+            onClick={() => handleMenu("profile")}
+            label="Profile"
+            icon={<AccountCircleOutlinedIcon sx={profileMenuStyle} />}
+          />
+          {/* {!userInfo?.google_login && ( */}
+          <ProfileMenuItem
+            onClick={() => handleMenu("changePassword")}
+            label="Change Password"
+            icon={<LockResetOutlinedIcon sx={profileMenuStyle} />}
+          />
+          {/* )} */}
+          {/* {userInfo &&
+            (userInfo.role === ROLES.admin ||
+              userInfo.role === ROLES.superAdmin) && ( */}
+          <ProfileMenuItem
+            onClick={() => handleMenu("manageUser")}
+            label="Manage User"
+            icon={<ManageAccountsOutlinedIcon sx={profileMenuStyle} />}
+          />
+          <ProfileMenuItem
+            onClick={handleLogout}
+            label="Log Out"
+            icon={<LogoutIcon sx={profileMenuStyle} />}
+          />
+        </Menu>
+      </Box>
     </React.Fragment>
   );
 }
