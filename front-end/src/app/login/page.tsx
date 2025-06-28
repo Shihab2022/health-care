@@ -3,11 +3,10 @@ import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
 import { toast } from "sonner";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
@@ -21,9 +20,8 @@ export const validationSchema = z.object({
 });
 
 const LoginPage = () => {
-  const router = useRouter();
   const [error, setError] = useState("");
-
+  const router = useRouter();
   const handleLogin = async (values: FieldValues) => {
     // console.log(values);
     try {
@@ -31,7 +29,6 @@ const LoginPage = () => {
       if (res?.data?.accessToken) {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
-        router.push("/dashboard");
       } else {
         setError(res.message);
         // console.log(res);
