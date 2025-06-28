@@ -29,7 +29,7 @@ const validationSchema = z.object({
     (x) => (x ? x : undefined),
     z.coerce.number().int().optional()
   ),
-  apointmentFee: z.preprocess(
+  appointmentFee: z.preprocess(
     (x) => (x ? x : undefined),
     z.coerce.number().int().optional()
   ),
@@ -44,21 +44,19 @@ const validationSchema = z.object({
 
 const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
   const { data: doctorData, refetch, isSuccess } = useGetDoctorQuery(id);
-  const { data: allSpecialties } = useGetAllSpecialtiesQuery({});
+  const { data: allSpecialties, isLoading: specializesLoading } =
+    useGetAllSpecialtiesQuery({});
   const [selectedSpecialtiesIds, setSelectedSpecialtiesIds] = useState([]);
 
   const [updateDoctor, { isLoading: updating }] = useUpdateDoctorMutation();
-  console.log({ open, setOpen, id });
   useEffect(() => {
     if (!isSuccess) return;
-
     setSelectedSpecialtiesIds(
       doctorData?.doctorSpecialties?.map((sp: any) => {
         return sp?.specialtiesId;
       })
     );
   }, [isSuccess]);
-
   const submitHandler = async (values: FieldValues) => {
     const specialties = selectedSpecialtiesIds?.map(
       (specialtiesId: string) => ({
@@ -100,7 +98,6 @@ const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
       console.log(error);
     }
   };
-
   return (
     <PHFullScreenModal open={open} setOpen={setOpen} title="Update Profile">
       <PHForm
@@ -160,9 +157,9 @@ const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <PHInput
-              name="apointmentFee"
+              name="appointmentFee"
               type="number"
-              label="ApointmentFee"
+              label="Appointment Fee"
               sx={{ mb: 2 }}
               fullWidth
             />
@@ -192,13 +189,15 @@ const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={4}>
-            <MultipleSelectChip
-              allSpecialties={allSpecialties}
-              selectedIds={selectedSpecialtiesIds}
-              setSelectedIds={setSelectedSpecialtiesIds}
-            />
-          </Grid>
+          {!specializesLoading && (
+            <Grid item xs={12} sm={12} md={4}>
+              <MultipleSelectChip
+                allSpecialties={allSpecialties}
+                selectedIds={selectedSpecialtiesIds}
+                setSelectedIds={setSelectedSpecialtiesIds}
+              />
+            </Grid>
+          )}
         </Grid>
 
         <Button type="submit" disabled={updating}>
