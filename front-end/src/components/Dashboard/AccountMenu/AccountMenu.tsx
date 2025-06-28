@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -15,6 +15,7 @@ import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
+import { getUserInfo } from "@/services/auth.services";
 const profileMenuStyle = {
   color: "#A1B0CC",
   fontSize: "30px",
@@ -39,6 +40,12 @@ const ProfileMenuItem = ({ onClick, label, icon }: any) => {
 };
 export default function AccountMenu(props: any) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [userRole, setUserRole] = useState("");
+
+  useEffect(() => {
+    const { role } = getUserInfo() as any;
+    setUserRole(role);
+  }, []);
   const router = useRouter();
   const handleLogout = () => {
     setAnchorElUser(null);
@@ -54,25 +61,25 @@ export default function AccountMenu(props: any) {
   };
   const handleMenu = (value: string) => {
     handleCloseUserMenu();
-    // switch (value) {
-    //   case "dashboard":
-    //     navigate("/");
-    //     break;
-    //   case "profile":
-    //     navigate("/account/profile");
-    //     break;
-    //   case "changePassword":
-    //     navigate("/account/password");
-    //     break;
-    //   case "manageUser":
-    //     navigate("/account/manage-users");
-    //     break;
-    //   case "logout":
-    //     handleLogout();
-    //     break;
-    //   default:
-    //     setAnchorElUser(null);
-    // }
+    switch (value) {
+      case "dashboard":
+        router.push(`/dashboard/${userRole}`);
+        break;
+      case "profile":
+        router.push(`/dashboard/${userRole}/profile`);
+        break;
+      case "changePassword":
+        router.push(`/dashboard/${userRole}/profile`);
+        break;
+      // case "manageUser":
+      //   navigate("/account/manage-users");
+      //   break;
+      case "logout":
+        handleLogout();
+        break;
+      default:
+        setAnchorElUser(null);
+    }
   };
   return (
     <React.Fragment>
@@ -213,11 +220,11 @@ export default function AccountMenu(props: any) {
           {/* {userInfo &&
             (userInfo.role === ROLES.admin ||
               userInfo.role === ROLES.superAdmin) && ( */}
-          <ProfileMenuItem
+          {/* <ProfileMenuItem
             onClick={() => handleMenu("manageUser")}
             label="Manage User"
             icon={<ManageAccountsOutlinedIcon sx={profileMenuStyle} />}
-          />
+          /> */}
           <ProfileMenuItem
             onClick={handleLogout}
             label="Log Out"
