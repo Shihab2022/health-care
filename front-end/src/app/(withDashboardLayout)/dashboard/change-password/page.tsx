@@ -18,13 +18,12 @@ const validationSchema = z.object({
 });
 
 const ChangePassword = () => {
-  const [changePassword] = useChangePasswordMutation();
+  const [changePassword, { isSuccess }] = useChangePasswordMutation();
   const router = useRouter();
   const onSubmit = async (values: FieldValues) => {
     try {
       const res = await changePassword(values);
-
-      if ("data" in res && res.data.status === 200) {
+      if (res?.data?.message) {
         logoutUser(router);
         toast.success("Password Changed Successfully");
       } else {
@@ -35,7 +34,7 @@ const ChangePassword = () => {
       console.log(error);
     }
   };
-
+  console.log({ isSuccess });
   return (
     <Box
       sx={{
