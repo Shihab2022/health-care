@@ -1,24 +1,16 @@
 "use client";
 
+import AccountMenu from "@/components/Dashboard/AccountMenu/AccountMenu";
 import useUserInfo from "@/hooks/useUserInfo";
-import { logoutUser } from "@/services/actions/logoutUser";
 import { Button } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const AuthButton = () => {
   const userInfo = useUserInfo();
-  const router = useRouter();
-
-  const handleLogOut = () => {
-    logoutUser(router);
-  };
   return (
     <>
-      {userInfo?.userId ? (
-        <Button color="error" onClick={handleLogOut}>
-          Logout
-        </Button>
+      {userInfo?.email ? (
+        <AccountMenu />
       ) : (
         <Button component={Link} href="/login">
           Login

@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import {
   Avatar,
@@ -12,10 +13,11 @@ import {
 import Typography from "@mui/material/Typography";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
 import { getUserInfo } from "@/services/auth.services";
+import { logoutUser } from "@/services/actions/logoutUser";
+import { usePathname } from "next/navigation";
 const profileMenuStyle = {
   color: "#A1B0CC",
   fontSize: "30px",
@@ -41,18 +43,20 @@ const ProfileMenuItem = ({ onClick, label, icon }: any) => {
 export default function AccountMenu(props: any) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [userRole, setUserRole] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
-    const { role } = getUserInfo() as any;
+    const { role, email } = getUserInfo() as any;
     setUserRole(role);
+    setUserEmail(email);
   }, []);
   const router = useRouter();
+  const pathname = usePathname();
   const handleLogout = () => {
     setAnchorElUser(null);
-    localStorage.removeItem("accessToken");
-    router.push("/login");
+    logoutUser(router);
   };
-
+  const isDashboard = pathname.includes("/dashboard");
   const handleOpenUserMenu = async (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -71,9 +75,9 @@ export default function AccountMenu(props: any) {
       case "changePassword":
         router.push(`/dashboard/${userRole}/profile`);
         break;
-      // case "manageUser":
-      //   navigate("/account/manage-users");
-      //   break;
+      case "home":
+        router.push("/");
+        break;
       case "logout":
         handleLogout();
         break;
@@ -108,12 +112,9 @@ export default function AccountMenu(props: any) {
           <Box sx={{ color: "black" }}>
             <Typography sx={{ textAlign: "right" }}>
               {/* {userInfo?.email} */}
-              shihab@gmail.com
+              {userEmail}
             </Typography>
-            <Typography sx={{ textAlign: "right" }}>
-              {/* {userInfo?.organisation} */}
-              Gandu
-            </Typography>
+            <Typography sx={{ textAlign: "right" }}>{userRole}</Typography>
           </Box>
           {/* )} */}
         </Stack>
@@ -156,16 +157,9 @@ export default function AccountMenu(props: any) {
                 marginBottom: "5px",
               }}
             >
-              {/* {userInfo.profileImage ? (
-                <Avatar
-                  src={userInfo.profileImage ? userImage : userInfo.image}
-                />
-              ) : ( */}
               <Avatar sx={{ background: "#7c4dff", color: "white" }}>
                 {"userInfo?.firstname"?.slice(0, 1).toUpperCase()}
-                {/* {userInfo?.firstname?.slice(0, 1).toUpperCase()} */}
               </Avatar>
-              {/* )} */}
             </Box>
           </Stack>
           <Typography
@@ -178,7 +172,7 @@ export default function AccountMenu(props: any) {
               marginTop: "10px",
             }}
           >
-            shhab@gmail.com
+            {userEmail}
           </Typography>
           <Typography
             sx={{
@@ -188,8 +182,7 @@ export default function AccountMenu(props: any) {
               marginTop: "13px",
             }}
           >
-            {/* {userInfo?.organisation} */}
-            Gandu
+            {userRole}
           </Typography>
           <Stack
             justifyContent="center"
@@ -199,10 +192,10 @@ export default function AccountMenu(props: any) {
             <Button
               variant="contained"
               color="secondary"
-              sx={{ boxShadow: "none" }}
-              onClick={() => handleMenu("dashboard")}
+              sx={{ boxShadow: "none", background: "#7c4dff" }}
+              onClick={() => handleMenu(!isDashboard ? "dashboard" : "home")}
             >
-              Dashboard
+              {!isDashboard ? "Dashboard" : "Home"}
             </Button>
           </Stack>
           <ProfileMenuItem
@@ -210,21 +203,11 @@ export default function AccountMenu(props: any) {
             label="Profile"
             icon={<AccountCircleOutlinedIcon sx={profileMenuStyle} />}
           />
-          {/* {!userInfo?.google_login && ( */}
           <ProfileMenuItem
             onClick={() => handleMenu("changePassword")}
             label="Change Password"
             icon={<LockResetOutlinedIcon sx={profileMenuStyle} />}
           />
-          {/* )} */}
-          {/* {userInfo &&
-            (userInfo.role === ROLES.admin ||
-              userInfo.role === ROLES.superAdmin) && ( */}
-          {/* <ProfileMenuItem
-            onClick={() => handleMenu("manageUser")}
-            label="Manage User"
-            icon={<ManageAccountsOutlinedIcon sx={profileMenuStyle} />}
-          /> */}
           <ProfileMenuItem
             onClick={handleLogout}
             label="Log Out"
