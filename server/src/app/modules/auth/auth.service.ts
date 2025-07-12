@@ -399,7 +399,7 @@ const forgotPassword = async (payload: { email: string }) => {
 };
 const resetPassword = async (
   token: string,
-  payload: { id: string; password: string }
+  payload: { id: string; newPassword: string }
 ) => {
   console.log({ token, payload });
 
@@ -417,7 +417,7 @@ const resetPassword = async (
   }
 
   // hash password
-  const password = await bcrypt.hash(payload.password, 12);
+  const password = await bcrypt.hash(payload.newPassword, 12);
 
   // update into database
   await prisma.user.update({
