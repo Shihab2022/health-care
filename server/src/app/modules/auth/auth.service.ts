@@ -25,6 +25,7 @@ const loginUser = async (payload: { email: string; password: string }) => {
   }
   const tokenData = {
     email: isUserExit.email,
+    userId: isUserExit?.id,
     role: isUserExit.role,
   };
   const accessToken = generateJwtToken(
