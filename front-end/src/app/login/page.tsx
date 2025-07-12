@@ -7,7 +7,6 @@ import { FieldValues } from "react-hook-form";
 import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import { z } from "zod";
@@ -21,9 +20,7 @@ export const validationSchema = z.object({
 
 const LoginPage = () => {
   const [error, setError] = useState("");
-  const router = useRouter();
   const handleLogin = async (values: FieldValues) => {
-    // console.log(values);
     try {
       const res = await userLogin(values);
       if (res?.data?.accessToken) {
@@ -31,7 +28,6 @@ const LoginPage = () => {
         storeUserInfo({ accessToken: res?.data?.accessToken });
       } else {
         setError(res.message);
-        // console.log(res);
       }
     } catch (err: any) {
       console.error(err.message);
@@ -117,9 +113,19 @@ const LoginPage = () => {
                 </Grid>
               </Grid>
 
-              <Typography mb={1} textAlign="end" component="p" fontWeight={300}>
-                Forgot Password?
-              </Typography>
+              <Link href={"/forgot-password"}>
+                <Typography
+                  mb={1}
+                  textAlign="end"
+                  component="p"
+                  fontWeight={300}
+                  sx={{
+                    textDecoration: "underline",
+                  }}
+                >
+                  Forgot Password?
+                </Typography>
+              </Link>
 
               <Button
                 sx={{
