@@ -17,7 +17,7 @@ CLOUDINARY_API_KEY='This is api key that is provided by Cloudinaray (Coludinary 
 STORE_ID="This Id provided by SSL commerz for payment"
 SOTRE_PASS="This password provided by SSL commerz for payment"
 SSL_PAYMENT_API="SSL payment api (https://sandbox.sslcommerz.com/gwprocess/v3/api.php)"
-SUCCESS_URL= 'Front end url with path (http://localhost:3030/success)'
-FAIL_URL='Front end url with path (http://localhost:3030/fail) '
-CANCEL_URL='Front end url with path (http://localhost:3030/cancel)'
+SUCCESS_URL= "http://localhost:3000/payment?status=success"
+FAIL_URL="http://localhost:3000/payment?status=failed"
+CANCEL_URL="http://localhost:3000/payment?status=cancel"
 SSL_VALIDATION_API="SSL validation url (https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php?wsdl)"

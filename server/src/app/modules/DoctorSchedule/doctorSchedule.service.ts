@@ -176,7 +176,7 @@ const getAllFromDB = async (
             },
           },
           {
-            endDateTime: {
+            startDateTime: {
               lte: endDate,
             },
           },

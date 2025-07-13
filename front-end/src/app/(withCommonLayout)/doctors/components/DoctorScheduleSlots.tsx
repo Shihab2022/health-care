@@ -2,11 +2,9 @@
 import { getTimeIn12HourFormat } from "@/app/(withDashboardLayout)/dashboard/doctor/schedules/components/MultipleSelectFieldChip";
 import { useCreateAppointmentMutation } from "@/redux/api/appointmentApi";
 import { useGetAllDoctorSchedulesQuery } from "@/redux/api/doctorScheduleApi";
+import { useInitialPaymentMutation } from "@/redux/api/paymentApi";
 import { DoctorSchedule } from "@/types/doctorSchedules";
-// import { useInitialPaymentMutation } from "@/redux/api/paymentApi";
-
 import { dateFormatter } from "@/utils/dateFormatter";
-
 import { Box, Button, Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -82,25 +80,25 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
   );
 
   const [createAppointment] = useCreateAppointmentMutation();
-  //   const [initialPayment] = useInitialPaymentMutation();
+  const [initialPayment] = useInitialPaymentMutation();
 
   const handleBookAppointment = async () => {
-    // try {
-    //   if (id && scheduleId) {
-    //     const res = await createAppointment({
-    //       doctorId: id,
-    //       scheduleId,
-    //     }).unwrap();
-    //     if (res.id) {
-    //       const response = await initialPayment(res.id).unwrap();
-    //       if (response.paymentUrl) {
-    //         router.push(response.paymentUrl);
-    //       }
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      if (id && scheduleId) {
+        const res = await createAppointment({
+          doctorId: id,
+          scheduleId,
+        }).unwrap();
+        if (res.id) {
+          const response = await initialPayment(res.id).unwrap();
+          if (response.paymentUrl) {
+            router.push(response.paymentUrl);
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
