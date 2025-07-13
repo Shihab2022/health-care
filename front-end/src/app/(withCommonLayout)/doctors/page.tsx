@@ -12,13 +12,13 @@ interface PropType {
 const Doctors = async ({ searchParams }: PropType) => {
   let res;
 
-  if (searchParams.specialties) {
-    res = await fetch(
-      `http://localhost:5000/api/v1/doctor?specialties=${searchParams.specialties}`
-    );
-  } else {
-    res = await fetch("http://localhost:5000/api/v1/doctor");
-  }
+  // if (searchParams?.specialties) {
+  //   res = await fetch(
+  //     `http://localhost:5000/api/v1/doctor?specialties=${searchParams?.specialties}`
+  //   );
+  // } else {
+  res = await fetch("http://localhost:5000/api/v1/doctor");
+  // }
 
   const { data } = await res.json();
 
@@ -28,7 +28,7 @@ const Doctors = async ({ searchParams }: PropType) => {
     <Container>
       <DashedLine />
 
-      <ScrollCategory specialties={searchParams.specialties} />
+      {/* <ScrollCategory specialties={searchParams?.specialties} /> */}
 
       <Box sx={{ mt: 2, p: 3, bgcolor: "secondary.light" }}>
         {data?.map((doctor: Doctor, index: number) => (

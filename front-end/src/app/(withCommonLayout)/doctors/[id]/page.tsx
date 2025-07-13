@@ -23,11 +23,11 @@ const InfoBoxStyles = {
 };
 
 const DoctorsProfilePage = async ({ params }: PropTypes) => {
-  const res = await fetch(`http://localhost:5000/api/v1/doctor/${params.id}`);
+  const res = await fetch(`http://localhost:5000/api/v1/doctor/${params?.id}`);
   const { data: doctor } = await res.json();
 
-  const specialties = doctor.doctorSpecialties.map(
-    (ds: any) => ds.specialties.title
+  const specialties = doctor?.doctorSpecialties?.map(
+    (ds: any) => ds?.specialties?.title
   );
 
   return (
@@ -82,7 +82,7 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
                       Specialties in
                     </Typography>
                     <Box>
-                      {specialties.map((sp: any) => (
+                      {specialties?.map((sp: any) => (
                         <Chip
                           key={sp}
                           label={sp}

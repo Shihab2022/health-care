@@ -18,10 +18,10 @@ const roleBasedPrivateRoutes = {
   SUPER_ADMIN: [/^\/dashboard\/super-admin/],
 };
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const accessToken = cookies().get("accessToken")?.value;
+  const accessToken = (await cookies()).get("accessToken")?.value;
 
   if (!accessToken) {
     if (AuthRoutes.includes(pathname)) {

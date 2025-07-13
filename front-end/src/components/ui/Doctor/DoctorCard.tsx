@@ -17,7 +17,7 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
       >
         <Box sx={{ width: 190, height: 190, bgcolor: "#808080" }}>
           <Image
-            src={doctor?.profilePhoto ? doctor.profilePhoto : placeholder}
+            src={doctor?.profilePhoto ? doctor?.profilePhoto : placeholder}
             alt="doctor image"
             width={190}
             height={190}

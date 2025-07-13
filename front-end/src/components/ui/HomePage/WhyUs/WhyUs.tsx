@@ -66,7 +66,7 @@ const WhyUs = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Image src={servicesData[0].imageSrc} width={50} alt="award" />
+                <Image src={servicesData[0]?.imageSrc} width={50} alt="award" />
               </Box>
               <Box>
                 <Typography
@@ -100,7 +100,7 @@ const WhyUs = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Image src={servicesData[1].imageSrc} width={50} alt="award" />
+                <Image src={servicesData[1]?.imageSrc} width={50} alt="award" />
               </Box>
               <Box>
                 <Typography variant="h6" component="h6" fontWeight={600}>
@@ -132,10 +132,10 @@ const WhyUs = () => {
               </Box>
               <Box>
                 <Typography variant="h6" component="h6" fontWeight={600}>
-                  {servicesData[2].title}
+                  {servicesData[2]?.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {servicesData[2].description}
+                  {servicesData[2]?.description}
                 </Typography>
               </Box>
             </Box>
@@ -157,14 +157,14 @@ const WhyUs = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Image src={servicesData[3].imageSrc} width={50} alt="award" />
+                <Image src={servicesData[3]?.imageSrc} width={50} alt="award" />
               </Box>
               <Box>
                 <Typography variant="h6" component="h6" fontWeight={600}>
-                  {servicesData[3].title}
+                  {servicesData[3]?.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {servicesData[3].description}
+                  {servicesData[3]?.description}
                 </Typography>
               </Box>
             </Box>

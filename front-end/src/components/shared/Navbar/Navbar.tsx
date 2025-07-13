@@ -11,7 +11,7 @@ const Navbar = () => {
     () => import("@/components/ui/AuthButton/AuthButton"),
     { ssr: false }
   );
-  console.log({ userInfo });
+
   return (
     <Container>
       <Stack
