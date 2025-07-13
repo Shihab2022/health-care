@@ -43,8 +43,6 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
 
   const doctorSchedules = data?.doctorSchedules;
 
-  console.log(doctorSchedules);
-
   const currentDate = new Date();
   const today = currentDate.toLocaleDateString("en-US", { weekday: "long" });
 
@@ -86,26 +84,24 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
   const [createAppointment] = useCreateAppointmentMutation();
   //   const [initialPayment] = useInitialPaymentMutation();
 
-  //   const handleBookAppointment = async () => {
-  //     try {
-  //       if (id && scheduleId) {
-  //         const res = await createAppointment({
-  //           doctorId: id,
-  //           scheduleId,
-  //         }).unwrap();
-
-  //         if (res.id) {
-  //           const response = await initialPayment(res.id).unwrap();
-
-  //           if (response.paymentUrl) {
-  //             router.push(response.paymentUrl);
-  //           }
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const handleBookAppointment = async () => {
+    // try {
+    //   if (id && scheduleId) {
+    //     const res = await createAppointment({
+    //       doctorId: id,
+    //       scheduleId,
+    //     }).unwrap();
+    //     if (res.id) {
+    //       const response = await initialPayment(res.id).unwrap();
+    //       if (response.paymentUrl) {
+    //         router.push(response.paymentUrl);
+    //       }
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
 
   return (
     <Box mb={5}>
@@ -124,9 +120,9 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
             ) : (
               availableSlots?.map((doctorSchedule: DoctorSchedule) => {
                 const formattedTimeSlot = `${getTimeIn12HourFormat(
-                  doctorSchedule?.schedule?.startDate
+                  doctorSchedule?.schedule?.startDateTime
                 )} - ${getTimeIn12HourFormat(
-                  doctorSchedule?.schedule?.endDate
+                  doctorSchedule?.schedule?.endDateTime
                 )}`;
 
                 return (
@@ -164,9 +160,9 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
             ) : (
               availableNextDaySlots?.map((doctorSchedule: DoctorSchedule) => {
                 const formattedTimeSlot = `${getTimeIn12HourFormat(
-                  doctorSchedule?.schedule?.startDate
+                  doctorSchedule?.schedule?.startDateTime
                 )} - ${getTimeIn12HourFormat(
-                  doctorSchedule?.schedule?.endDate
+                  doctorSchedule?.schedule?.endDateTime
                 )}`;
 
                 return (
@@ -193,12 +189,12 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
         </Stack>
       </Box>
 
-      {/* <Button
+      <Button
         onClick={handleBookAppointment}
         sx={{ display: "block", mx: "auto" }}
       >
         Book Appointment Now
-      </Button> */}
+      </Button>
     </Box>
   );
 };

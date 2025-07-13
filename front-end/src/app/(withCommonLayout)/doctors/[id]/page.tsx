@@ -25,7 +25,6 @@ const InfoBoxStyles = {
 const DoctorsProfilePage = async ({ params }: PropTypes) => {
   const res = await fetch(`http://localhost:5000/api/v1/doctor/${params?.id}`);
   const { data: doctor } = await res.json();
-
   const specialties = doctor?.doctorSpecialties?.map(
     (ds: any) => ds?.specialties?.title
   );
@@ -117,7 +116,7 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
                       }}
                     >
                       <Typography>
-                        Taka : {doctor?.apointmentFee} (incl. Vat)
+                        Taka : {doctor?.appointmentFee} (incl. Vat)
                       </Typography>
                       <Typography>Per consultation</Typography>
                     </Stack>
