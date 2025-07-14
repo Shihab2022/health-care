@@ -4,8 +4,10 @@ import { tagTypesList } from "../tag-types";
 
 // Define a service using a base URL and expected endpoints
 export const baseApi = createApi({
-    reducerPath: "api",
-    baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
-    endpoints: () => ({}),
-    tagTypes: tagTypesList,
+  reducerPath: "api",
+  baseQuery: axiosBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_BACKEND_API_URL as string,
+  }),
+  endpoints: () => ({}),
+  tagTypes: tagTypesList,
 });
