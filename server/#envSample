@@ -21,3 +21,4 @@ SUCCESS_URL= "http://localhost:3000/payment?status=success"
 FAIL_URL="http://localhost:3000/payment?status=failed"
 CANCEL_URL="http://localhost:3000/payment?status=cancel"
 SSL_VALIDATION_API="SSL validation url (https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php?wsdl)"
+HUGGING_FACE_TOKEN=token form hugging face (https://huggingface.co/)
