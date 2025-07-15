@@ -14,7 +14,20 @@ const generatePrompt = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const GetLargeLanguageModelData = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await AiServices.GetLargeLanguageModelData();
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Prompt generate successfully ",
+      data: result,
+    });
+  }
+);
 
 export const AiController = {
   generatePrompt,
+  GetLargeLanguageModelData,
 };
