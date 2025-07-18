@@ -45,7 +45,7 @@ const LoginPage = () => {
   return (
     <>
       <Grid container sx={{ width: "100%", height: "100vh" }}>
-        <Grid item xs={6} md={6}>
+        <Grid item xs={12} md={6}>
           <Stack
             direction="column"
             spacing={2}
@@ -147,7 +147,7 @@ const LoginPage = () => {
             </Box>
           </Stack>
         </Grid>
-        <Grid item xs={6} md={6}>
+        <Grid item xs={12} md={6}>
           <Box style={{ position: "relative", width: "100%", height: "100vh" }}>
             <Image
               src={assets.images.LoginImg}
