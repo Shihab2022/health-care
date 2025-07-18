@@ -15,6 +15,7 @@ const assets = {
     familyOnBeach: require("./images/familyOnBeach.png"),
     doctorAvatar: require("./images/doctor-avater.jpg"),
     LoginImg: require("./images/loginPage.jpg"),
+    registerImg: require("./images/register.jpg"),
   },
   svgs: {
     logo: require("./svgs/logo.svg"),

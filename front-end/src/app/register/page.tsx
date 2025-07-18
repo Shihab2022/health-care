@@ -22,7 +22,8 @@ import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import Logo from "@/components/shared/Logo/Logo";
+import HButton from "@/components/shared/button/button";
 export const patientValidationSchema = z.object({
   name: z.string().min(1, "Please enter your name!"),
   email: z.string().email("Please enter a valid email address!"),
@@ -31,7 +32,12 @@ export const patientValidationSchema = z.object({
     .regex(/^\d{11}$/, "Please provide a valid phone number!"),
   address: z.string().min(1, "Please enter your address!"),
 });
-
+const sx = {
+  "& .MuiOutlinedInput-root": {
+    height: 50,
+    borderRadius: "15px",
+  },
+};
 export const validationSchema = z.object({
   password: z.string().min(6, "Must be at least 6 characters"),
   patient: patientValidationSchema,
@@ -73,99 +79,127 @@ const RegisterPage = () => {
   };
 
   return (
-    <Container>
-      <Stack
-        sx={{
-          height: "100vh",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          sx={{
-            maxWidth: 600,
-            width: "100%",
-            boxShadow: 1,
-            borderRadius: 1,
-            p: 4,
-            textAlign: "center",
-          }}
-        >
+    <>
+      <Grid container sx={{ width: "100%", height: "100vh" }}>
+        <Grid item xs={6} md={6}>
+          <Box style={{ position: "relative", width: "100%", height: "100vh" }}>
+            <Image
+              src={assets.images.registerImg}
+              fill
+              style={{ objectFit: "cover" }}
+              alt="logo"
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={6} md={6}>
           <Stack
+            direction="column"
+            spacing={2}
             sx={{
-              justifyContent: "center",
+              justifyContent: "space-around",
               alignItems: "center",
+              paddingY: "25px",
+              height: "100%",
             }}
           >
-            <Box>
-              <Image src={assets?.svgs?.logo} width={50} height={50} alt="logo" />
-            </Box>
-            <Box>
-              <Typography variant="h6" fontWeight={600}>
-                Patient Register
-              </Typography>
+            <Stack width="70%" height="10%">
+              <Logo isBgWhite={true} />
+            </Stack>
+
+            <Box height="90%" width="60%" sx={{ background: "white" }}>
+              <Stack>
+                <Box>
+                  <Typography variant="h5">Create your account</Typography>
+
+                  <PHForm
+                    onSubmit={handleRegister}
+                    resolver={zodResolver(validationSchema)}
+                    defaultValues={defaultValues}
+                  >
+                    <Grid container spacing={2} my={1}>
+                      <Grid item md={12}>
+                        <PHInput
+                          label="Name"
+                          fullWidth={true}
+                          name="patient.name"
+                          sx={sx}
+                        />
+                      </Grid>
+                      <Grid item md={12}>
+                        <PHInput
+                          label="Email"
+                          type="email"
+                          fullWidth={true}
+                          name="patient.email"
+                          sx={sx}
+                        />
+                      </Grid>
+                      <Grid item md={12}>
+                        <PHInput
+                          label="Password"
+                          type="password"
+                          fullWidth={true}
+                          name="password"
+                          sx={sx}
+                        />
+                      </Grid>
+                      <Grid item md={12}>
+                        <PHInput
+                          label="Contact Number"
+                          type="tel"
+                          fullWidth={true}
+                          name="patient.contactNumber"
+                          sx={sx}
+                        />
+                      </Grid>
+                      <Grid item md={12}>
+                        <PHInput
+                          label="Address"
+                          fullWidth={true}
+                          name="patient.address"
+                          sx={sx}
+                        />
+                      </Grid>
+                    </Grid>
+                    <HButton text="Register" />
+
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      sx={{
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <Typography
+                        sx={{ marginTop: "15px" }}
+                        component="p"
+                        fontWeight={350}
+                      >
+                        Do you already have an account?{" "}
+                      </Typography>
+                      <Link href="/login">
+                        {" "}
+                        <Typography
+                          component="p"
+                          fontWeight={300}
+                          sx={{
+                            textDecoration: "underline",
+                            color: "#007aff",
+                          }}
+                        >
+                          Login
+                        </Typography>{" "}
+                      </Link>
+                    </Stack>
+                  </PHForm>
+                </Box>
+              </Stack>
             </Box>
           </Stack>
-
-          <Box>
-            <PHForm
-              onSubmit={handleRegister}
-              resolver={zodResolver(validationSchema)}
-              defaultValues={defaultValues}
-            >
-              <Grid container spacing={2} my={1}>
-                <Grid item md={12}>
-                  <PHInput label="Name" fullWidth={true} name="patient.name" />
-                </Grid>
-                <Grid item md={6}>
-                  <PHInput
-                    label="Email"
-                    type="email"
-                    fullWidth={true}
-                    name="patient.email"
-                  />
-                </Grid>
-                <Grid item md={6}>
-                  <PHInput
-                    label="Password"
-                    type="password"
-                    fullWidth={true}
-                    name="password"
-                  />
-                </Grid>
-                <Grid item md={6}>
-                  <PHInput
-                    label="Contact Number"
-                    type="tel"
-                    fullWidth={true}
-                    name="patient.contactNumber"
-                  />
-                </Grid>
-                <Grid item md={6}>
-                  <PHInput
-                    label="Address"
-                    fullWidth={true}
-                    name="patient.address"
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                sx={{
-                  margin: "10px 0px",
-                }}
-                fullWidth={true}
-                type="submit"
-              >
-                Register
-              </Button>
-              <Typography component="p" fontWeight={300}>
-                Do you already have an account? <Link href="/login">Login</Link>
-              </Typography>
-            </PHForm>
-          </Box>
-        </Box>
-      </Stack>
-    </Container>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
