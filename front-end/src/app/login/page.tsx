@@ -1,13 +1,5 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-  Item,
-} from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
@@ -21,6 +13,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Logo from "@/components/shared/Logo/Logo";
+const sx = {
+  "& .MuiOutlinedInput-root": {
+    height: 50,
+    borderRadius: "15px",
+  },
+};
 
 export const validationSchema = z.object({
   email: z.string().email("Please enter a valid email address!"),
@@ -54,75 +52,122 @@ const LoginPage = () => {
               justifyContent: "space-around",
               alignItems: "center",
               paddingY: "25px",
-              background: "red",
               height: "100%",
             }}
           >
-            <Logo isBgWhite={true} />
+            <Stack width="70%" height="20%">
+              <Logo isBgWhite={true} />
+            </Stack>
 
-            <Stack sx={{ background: "white" }}>
-              <Box>
-                <Typography variant="h5">Login your account</Typography>
-
+            <Box height="80%" width="60%" sx={{ background: "white" }}>
+              <Stack>
                 <Box>
-                  <PHForm
-                    onSubmit={handleLogin}
-                    resolver={zodResolver(validationSchema)}
-                    defaultValues={{
-                      email: "",
-                      password: "",
-                    }}
-                  >
-                    <Grid container spacing={2} my={1}>
-                      <Grid item md={12}>
-                        <PHInput
-                          name="email"
-                          label="Email"
-                          type="email"
-                          fullWidth={true}
-                        />
-                      </Grid>
-                      <Grid item md={12}>
-                        <PHInput
-                          name="password"
-                          label="Password"
-                          type="password"
-                          fullWidth={true}
-                        />
-                      </Grid>
-                    </Grid>
+                  <Typography variant="h5">Login your account</Typography>
 
-                    <Link href={"/forgot-password"}>
-                      <Typography
-                        mb={1}
-                        textAlign="end"
-                        component="p"
-                        fontWeight={300}
+                  <Box>
+                    <PHForm
+                      onSubmit={handleLogin}
+                      resolver={zodResolver(validationSchema)}
+                      defaultValues={{
+                        email: "",
+                        password: "",
+                      }}
+                    >
+                      <Grid container spacing={2} my={3}>
+                        <Grid item md={12}>
+                          <PHInput
+                            name="email"
+                            label="Email"
+                            type="email"
+                            fullWidth={true}
+                            sx={sx}
+                          />
+                        </Grid>
+                        <Grid item md={12}>
+                          <PHInput
+                            name="password"
+                            label="Password"
+                            type="password"
+                            fullWidth={true}
+                            sx={sx}
+                          />
+                        </Grid>
+                      </Grid>
+
+                      <Link href={"/forgot-password"}>
+                        <Typography
+                          mb={1}
+                          textAlign="end"
+                          component="p"
+                          fontWeight={300}
+                          sx={{
+                            textDecoration: "underline",
+                            color: "#007aff",
+                          }}
+                        >
+                          Forgot Password?
+                        </Typography>
+                      </Link>
+
+                      <Button
                         sx={{
-                          textDecoration: "underline",
+                          backgroundImage:
+                            "linear-gradient(to right, #43cea2 0%, #185a9d 51%, #43cea2 100%)",
+                          padding: "15px 45px",
+                          margin: "10px 0px",
+                          textAlign: "center",
+                          textTransform: "uppercase",
+                          transition: "0.5s",
+                          backgroundSize: "200% auto",
+                          color: "white",
+                          boxShadow: "0 0 20px #eee",
+                          borderRadius: "15px",
+                          display: "block",
+                          "&:hover": {
+                            backgroundPosition: "right center",
+                            color: "#fff",
+                            textDecoration: "none",
+                          },
+                        }}
+                        fullWidth={true}
+                        type="submit"
+                      >
+                        Login
+                      </Button>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        sx={{
+                          justifyContent: "flex-start",
+                          alignItems: "flex-start",
                         }}
                       >
-                        Forgot Password?
-                      </Typography>
-                    </Link>
-
-                    <Button
-                      sx={{
-                        margin: "10px 0px",
-                      }}
-                      fullWidth={true}
-                      type="submit"
-                    >
-                      Login
-                    </Button>
-                    <Typography component="p" fontWeight={300}>
-                      Don&apos;t have an account?{" "}
-                      <Link href="/register">Create an account</Link>
-                    </Typography>
-                  </PHForm>
+                        <Typography
+                          sx={{ marginTop: "15px" }}
+                          component="p"
+                          fontWeight={350}
+                        >
+                          Don&apos;t have an account?{" "}
+                        </Typography>
+                        <Link href="/register">
+                          {" "}
+                          <Typography
+                            component="p"
+                            fontWeight={300}
+                            sx={{
+                              textDecoration: "underline",
+                              color: "#007aff",
+                            }}
+                          >
+                            Create an account
+                          </Typography>{" "}
+                        </Link>
+                      </Stack>
+                    </PHForm>
+                  </Box>
                 </Box>
-              </Box>
-            </Stack>
+              </Stack>
+            </Box>
           </Stack>
         </Grid>
         <Grid item xs={6} md={6}>
@@ -137,116 +182,6 @@ const LoginPage = () => {
         </Grid>
       </Grid>
     </>
-    // <Container>
-    //   <Stack
-    //     sx={{
-    //       height: "100vh",
-    //       justifyContent: "center",
-    //       alignItems: "center",
-    //     }}
-    //   >
-    //     <Box
-    //       sx={{
-    //         maxWidth: 600,
-    //         width: "100%",
-    //         boxShadow: 1,
-    //         borderRadius: 1,
-    //         p: 4,
-    //         textAlign: "center",
-    //       }}
-    //     >
-    //       <Stack
-    //         sx={{
-    //           justifyContent: "center",
-    //           alignItems: "center",
-    //         }}
-    //       >
-    //         <Box>
-    //           <Image src={assets.svgs.logo} width={50} height={50} alt="logo" />
-    //         </Box>
-    //         <Box>
-    //           <Typography variant="h6" fontWeight={600}>
-    //             Login PH HealthCare
-    //           </Typography>
-    //         </Box>
-    //       </Stack>
-
-    //       {error && (
-    //         <Box>
-    //           <Typography
-    //             sx={{
-    //               backgroundColor: "red",
-    //               padding: "1px",
-    //               borderRadius: "2px",
-    //               color: "white",
-    //               marginTop: "5px",
-    //             }}
-    //           >
-    //             {error}
-    //           </Typography>
-    //         </Box>
-    //       )}
-
-    //       <Box>
-    //         <PHForm
-    //           onSubmit={handleLogin}
-    //           resolver={zodResolver(validationSchema)}
-    //           defaultValues={{
-    //             email: "",
-    //             password: "",
-    //           }}
-    //         >
-    //           <Grid container spacing={2} my={1}>
-    //             <Grid item md={6}>
-    //               <PHInput
-    //                 name="email"
-    //                 label="Email"
-    //                 type="email"
-    //                 fullWidth={true}
-    //               />
-    //             </Grid>
-    //             <Grid item md={6}>
-    //               <PHInput
-    //                 name="password"
-    //                 label="Password"
-    //                 type="password"
-    //                 fullWidth={true}
-    //               />
-    //             </Grid>
-    //           </Grid>
-
-    //           <Link href={"/forgot-password"}>
-    //             <Typography
-    //               mb={1}
-    //               textAlign="end"
-    //               component="p"
-    //               fontWeight={300}
-    //               sx={{
-    //                 textDecoration: "underline",
-    //               }}
-    //             >
-    //               Forgot Password?
-    //             </Typography>
-    //           </Link>
-
-    //           <Button
-    //             sx={{
-    //               margin: "10px 0px",
-    //             }}
-    //             fullWidth={true}
-    //             type="submit"
-    //           >
-    //             Login
-    //           </Button>
-    //           <Typography component="p" fontWeight={300}>
-    //             Don&apos;t have an account?{" "}
-    //             <Link href="/register">Create an account</Link>
-    //           </Typography>
-    //         </PHForm>
-    //       </Box>
-    //     </Box>
-    //   </Stack>
-    // </Container>
   );
 };
 
