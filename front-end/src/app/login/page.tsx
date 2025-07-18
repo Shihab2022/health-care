@@ -13,6 +13,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Logo from "@/components/shared/Logo/Logo";
+import HButton from "@/components/shared/button/button";
 const sx = {
   "& .MuiOutlinedInput-root": {
     height: 50,
@@ -109,31 +110,7 @@ const LoginPage = () => {
                         </Typography>
                       </Link>
 
-                      <Button
-                        sx={{
-                          backgroundImage:
-                            "linear-gradient(to right, #43cea2 0%, #185a9d 51%, #43cea2 100%)",
-                          padding: "15px 45px",
-                          margin: "10px 0px",
-                          textAlign: "center",
-                          textTransform: "uppercase",
-                          transition: "0.5s",
-                          backgroundSize: "200% auto",
-                          color: "white",
-                          boxShadow: "0 0 20px #eee",
-                          borderRadius: "15px",
-                          display: "block",
-                          "&:hover": {
-                            backgroundPosition: "right center",
-                            color: "#fff",
-                            textDecoration: "none",
-                          },
-                        }}
-                        fullWidth={true}
-                        type="submit"
-                      >
-                        Login
-                      </Button>
+                      <HButton text="Login" />
                       <Stack
                         direction="row"
                         spacing={2}
