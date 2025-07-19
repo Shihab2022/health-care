@@ -5,9 +5,15 @@ const Logo = ({ isBgWhite }: { isBgWhite: boolean }) => {
   return (
     <>
       {isBgWhite ? (
-        <Typography variant="h4" component={Link} href="/" fontWeight={600}>
+        <Typography
+          color="#000"
+          variant="h4"
+          component={Link}
+          href="/"
+          fontWeight={600}
+        >
           P
-          <Box component="span" color="primary.main">
+          <Box component="span" color="#000">
             H
           </Box>{" "}
           Health Care
@@ -18,10 +24,10 @@ const Logo = ({ isBgWhite }: { isBgWhite: boolean }) => {
           component={Link}
           href="/"
           fontWeight={600}
-          color="white"
+          color="#000"
         >
           P
-          <Box component="span" color="primary.main">
+          <Box component="span" color="#000">
             H
           </Box>{" "}
           Health Care
