@@ -1,9 +1,38 @@
 "use client";
 import { useState } from "react";
 import assets from "@/assets";
-import { Box, Modal, Stack, Typography } from "@mui/material";
+import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import DirectionsCarFilledRoundedIcon from "@mui/icons-material/DirectionsCarFilledRounded";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+
+const config = [
+  {
+    id: 1,
+    title: "Hotline",
+    text: "123-456-7890",
+    icon: <LocalPhoneIcon sx={{ color: "white", fontSize: "40px" }} />,
+  },
+  {
+    id: 155,
+    title: "Ambulance",
+    text: "876-256-876",
+    icon: (
+      <DirectionsCarFilledRoundedIcon
+        sx={{ color: "white", fontSize: "40px" }}
+      />
+    ),
+  },
+  {
+    id: 15,
+    title: "Location",
+    text: "New York, US",
+    icon: <LocationOnOutlinedIcon sx={{ color: "white", fontSize: "40px" }} />,
+  },
+];
 const HeroSection2 = () => {
   const [open, setOpen] = useState(false);
   return (
@@ -11,13 +40,14 @@ const HeroSection2 = () => {
       <Box
         sx={{
           width: "100%",
-          minHeight: "100vh",
+          minHeight: "110vh",
           position: "relative",
-          overflow: "hidden",
+          //   overflow: "hidden",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           px: { xs: 1, md: 4 },
+          marginBottom: "200px",
         }}
       >
         <Box sx={{ zIndex: 0 }}>
@@ -131,6 +161,91 @@ const HeroSection2 = () => {
             />
           </Box>
         </Stack>
+
+        <Box
+          sx={{
+            background: "#fff",
+            boxShadow: 4,
+            height: "150px",
+            width: "85%",
+            position: "absolute",
+            left: 150,
+            bottom: -75,
+            zIndex: 1100,
+            borderRadius: "15px",
+          }}
+        >
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              justifyContent: "space-around",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            {config?.map((c) => (
+              <>
+                <Stack
+                  key={c?.id}
+                  direction="row"
+                  spacing={2}
+                  sx={{
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      height: "65px",
+                      width: "65px",
+                      borderRadius: "100%",
+                      background: "#307bc4",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {c?.icon}
+                  </Box>
+
+                  <Box>
+                    <Typography color="#307bc4" variant="h6">
+                      {c?.title}
+                    </Typography>
+                    <Typography>{c?.text}</Typography>
+                  </Box>
+                </Stack>
+              </>
+            ))}
+
+            <Button
+              variant="contained"
+              endIcon={
+                <ArrowRightAltIcon
+                  className="arrow-icon"
+                  sx={{ fontSize: "60px", fontWeight: 700 }}
+                />
+              }
+              sx={{
+                padding: "15px 45px",
+                borderRadius: "30px",
+                backgroundImage:
+                  "linear-gradient(to right, #aaafda 0%, #0365c8 51%, #939bde 100%)",
+                textTransform: "none",
+                transition: "all 0.5s ease",
+                "& .arrow-icon": {
+                  transition: "transform 0.8s ease",
+                },
+                "&:hover .arrow-icon": {
+                  transform: "translateX(10px)", // 👈 slide right on hover
+                },
+              }}
+            >
+              Book Now
+            </Button>
+          </Stack>
+        </Box>
       </Box>
 
       <Modal
