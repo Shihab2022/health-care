@@ -41,6 +41,9 @@ const assets = {
     care: require("./svgs/care-icon.svg"),
     equipment: require("./svgs/medical-equipment-icon.svg"),
     call: require("./svgs/call-icon.svg"),
+    compassion: require("./svgs/compassion.svg"),
+    integrity: require("./svgs/integrity.svg"),
+    excellence: require("./svgs/excellence.svg"),
   },
   layout: {
     home1: require("./layout_img/home1.png"),
