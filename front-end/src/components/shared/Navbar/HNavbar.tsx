@@ -111,6 +111,7 @@ export default function HNavbar(props: Props) {
           backgroundColor: scrollNavbar ? "#fff" : "transparent",
           boxShadow: scrollNavbar ? 1 : "none",
           color: scrollNavbar ? "#000" : "#fff",
+          paddingX: "80px",
         }}
         elevation={0}
         color="inherit"

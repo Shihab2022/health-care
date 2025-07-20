@@ -1,3 +1,4 @@
+import HeroSection2 from "@/components/homepage2/heroSection";
 import HeroSection from "@/components/ui/HomePage/HeroSection/HeroSection";
 import HowItWorks from "@/components/ui/HomePage/HowItWorks/HowItWorks";
 import Specialist from "@/components/ui/HomePage/Specialist/Specialist";
@@ -7,7 +8,7 @@ import WhyUs from "@/components/ui/HomePage/WhyUs/WhyUs";
 const HomePage = () => {
   return (
     <>
-      <HeroSection />
+      <HeroSection2 />
       <Specialist />
       <TopRatedDoctors />
       <WhyUs />

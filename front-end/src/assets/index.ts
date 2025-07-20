@@ -42,6 +42,10 @@ const assets = {
     equipment: require("./svgs/medical-equipment-icon.svg"),
     call: require("./svgs/call-icon.svg"),
   },
+  layout: {
+    home1: require("./layout_img/home1.png"),
+    banner1: require("./layout_img/banner1.jpg"),
+  },
 };
 
 export default assets;
