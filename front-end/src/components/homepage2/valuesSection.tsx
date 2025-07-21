@@ -11,16 +11,61 @@ import type { Swiper as SwiperClass } from "swiper/types";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-const ValuesCard = () => {
+
+const config = [
+  {
+    id: 2,
+    icon: assets.svgs.compassion,
+    title: "Compassion",
+    description:
+      "We understand that seeking medical care can be a stressful and emotional experience, and we strive to create a welcoming and supportive environment that puts our patients at ease and every one.",
+  },
+  {
+    id: 244,
+    icon: assets.svgs.excellence,
+    title: "Excellence",
+    description:
+      "We are committed to providing excellent medical care and services to our patients. We believe in continuously improving our skills, knowledge, and resources to ensure that we deliver the highest quality care possible.",
+  },
+  {
+    id: 2233,
+    icon: assets.svgs.integrity,
+    title: "Integrity",
+    description:
+      "We believe in practicing medicine with integrity and honesty. We are transparent in our communication and decision-making processes, and we always put our patient's interests first & provide best solution.",
+  },
+  {
+    id: 2322,
+    icon: assets.svgs.compassion,
+    title: "Respect",
+    description:
+      "We understand that seeking medical care can be a stressful and emotional experience, and we strive to create a welcoming and supportive environment that puts our patients at ease and every one.",
+  },
+  {
+    id: 2342,
+    icon: assets.svgs.excellence,
+    title: "Teamwork",
+    description:
+      "We understand that seeking medical care can be a stressful and emotional experience, and we strive to create a welcoming and supportive environment that puts our patients at ease and every one.",
+  },
+];
+const ValuesCard = ({ value }: any) => {
+  const { icon, title, description } = value;
   return (
     <Box
       sx={{
-        height: "500px",
+        height: "470px",
         width: "400px",
         background: "#fff",
-        boxShadow: 4,
         padding: "55px 50px",
         borderRadius: "20px",
+        zIndex: 200,
+        boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        "&:hover": {
+          transform: "translateY(-40px)",
+          boxShadow: "0px 15px 30px rgba(0, 0, 0, 0.15)",
+        },
       }}
     >
       <Stack
@@ -32,21 +77,21 @@ const ValuesCard = () => {
           width: "100%",
         }}
       >
-        <Image
-          src={assets.svgs.compassion}
-          alt="compassion"
-          height={100}
-          width={100}
-        />
+        <Image src={icon} alt="compassion" height={100} width={100} />
       </Stack>
-      <Typography variant="h2" sx={{ fontSize: "50px ", fontWeight: 400 }}>
-        Excellence
+      <Typography
+        variant="h2"
+        sx={{
+          fontSize: "40px ",
+          fontWeight: 700,
+          textAlign: "center",
+          marginY: "15px",
+        }}
+      >
+        {title}
       </Typography>
-      <Typography variant="subtitle1">
-        We are committed to providing excellent medical care and services to our
-        patients. We believe in continuously improving our skills, knowledge,
-        and resources to ensure that we deliver the highest quality care
-        possible.
+      <Typography sx={{ textAlign: "center" }} variant="subtitle1">
+        {description}
       </Typography>
     </Box>
   );
@@ -56,7 +101,7 @@ const ValuesSection = () => {
   const swiperRef = useRef<SwiperClass>();
   return (
     <>
-      <Container maxWidth="xl" sx={{ height: "500px " }}>
+      <Container maxWidth="xl" sx={{ height: "700px " }}>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
@@ -97,11 +142,16 @@ const ValuesSection = () => {
               />
             </Stack>
           </Grid>
-          <Grid item xs={12} md={8} sx={{ position: "relative" }}>
+          <Grid
+            item
+            xs={12}
+            md={8}
+            sx={{ position: "relative", backgroundColor: "inherit" }}
+          >
             <Box
               sx={{
                 background: "linear-gradient(154deg, #d2eaef, #86bbf1)",
-                height: "80%",
+                height: "60%",
                 width: "100%",
                 borderRadius: "25px",
               }}
@@ -112,7 +162,9 @@ const ValuesSection = () => {
                 left: 25,
                 top: "150px",
                 width: "calc(100% - 10px)",
-                overflow: "hidden",
+                overflowX: "hidden",
+                overflowY: "auto",
+                zIndex: 100,
               }}
             >
               <Swiper
@@ -134,18 +186,13 @@ const ValuesSection = () => {
                 allowTouchMove={true}
                 style={{ overflow: "hidden" }}
               >
-                <SwiperSlide>
-                  <ValuesCard />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <ValuesCard />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <ValuesCard />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <ValuesCard />
-                </SwiperSlide>
+                {config.map((c) => (
+                  <>
+                    <SwiperSlide key={c?.id}>
+                      <ValuesCard value={c} />
+                    </SwiperSlide>
+                  </>
+                ))}
               </Swiper>
             </Box>
           </Grid>
