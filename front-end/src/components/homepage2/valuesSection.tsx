@@ -1,10 +1,16 @@
+"use client";
 import assets from "@/assets";
+import { useRef } from "react";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
+import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
+import type { Swiper as SwiperClass } from "swiper/types";
 import "swiper/css";
-
-// import "./styles.css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 const ValuesCard = () => {
   return (
     <Box
@@ -47,6 +53,7 @@ const ValuesCard = () => {
 };
 
 const ValuesSection = () => {
+  const swiperRef = useRef<SwiperClass>();
   return (
     <>
       <Container maxWidth="xl" sx={{ height: "500px " }}>
@@ -61,6 +68,34 @@ const ValuesSection = () => {
               {" "}
               Our Values
             </Typography>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{
+                justifyContent: "flex-start",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
+              <ArrowCircleLeftOutlinedIcon
+                sx={{
+                  fontSize: "70px",
+                  cursor: "pointer",
+                  color: "#86bbf1",
+                  fontWeight: 100,
+                }}
+                onClick={() => swiperRef.current?.slidePrev()}
+              />
+              <ArrowCircleRightOutlinedIcon
+                onClick={() => swiperRef.current?.slideNext()}
+                sx={{
+                  fontSize: "70px",
+                  cursor: "pointer",
+                  color: "#86bbf1",
+                  fontWeight: 100,
+                }}
+              />
+            </Stack>
           </Grid>
           <Grid item xs={12} md={8} sx={{ position: "relative" }}>
             <Box
@@ -71,17 +106,47 @@ const ValuesSection = () => {
                 borderRadius: "25px",
               }}
             ></Box>
-            <Box sx={{ position: "absolute", left: 50, top: "150px" }}>
-              <Stack
-                direction="row"
-                spacing={2}
-                sx={{
-                  justifyContent: "flex-start",
-                  alignItems: "flex-start",
+            <Box
+              sx={{
+                position: "absolute",
+                left: 25,
+                top: "150px",
+                width: "calc(100% - 10px)",
+                overflow: "hidden",
+              }}
+            >
+              <Swiper
+                modules={[Autoplay, Navigation]}
+                onSwiper={(swiper) => {
+                  swiperRef.current = swiper;
                 }}
+                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                spaceBetween={220}
+                slidesPerView={3}
+                loop={true}
+                pagination={{
+                  clickable: true,
+                }}
+                breakpoints={{
+                  600: { slidesPerView: 2 },
+                  900: { slidesPerView: 3 },
+                }}
+                allowTouchMove={true}
+                style={{ overflow: "hidden" }}
               >
-                <ValuesCard /> <ValuesCard /> <ValuesCard /> <ValuesCard />
-              </Stack>
+                <SwiperSlide>
+                  <ValuesCard />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <ValuesCard />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <ValuesCard />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <ValuesCard />
+                </SwiperSlide>
+              </Swiper>
             </Box>
           </Grid>
         </Grid>
