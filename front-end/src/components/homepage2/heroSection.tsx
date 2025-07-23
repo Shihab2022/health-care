@@ -9,6 +9,7 @@ import DirectionsCarFilledRoundedIcon from "@mui/icons-material/DirectionsCarFil
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import ValuesSection from "./valuesSection";
+import Departments from "./departments";
 
 const config = [
   {
@@ -281,6 +282,8 @@ const HeroSection2 = () => {
       </Modal>
 
       <ValuesSection />
+
+      <Departments />
     </>
   );
 };
